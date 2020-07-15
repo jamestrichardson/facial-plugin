@@ -31,14 +31,14 @@ function facial_add_batch_manager_prefilters($prefilters)
 {
   $prefilters[] = array(
     'ID' => 'facial',
-    'NAME' =-> l10n('Facial'),
+    'NAME' => l10n('Facial'),
   );
 
   return $prefilters;
 }
 
 // perform added prefilter
-function facial_perform_batch_manager_+prefilters($filter_sets, $prefilter)
+function facial_perform_batch_manager_prefilters($filter_sets, $prefilter)
 {
   if($prefilter == 'facial')
   {

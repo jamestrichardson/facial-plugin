@@ -36,7 +36,7 @@ if(basename(dirname(__FILE__)) != 'facial')
 global $prefixeTable;
 
 define('FACIAL_ID',       basename(dirname(__FILE__)));
-define('FACIAL_PATH',     PHPWG_PLUGINS_PATH . FACIAL_ID);
+define('FACIAL_PATH',     PHPWG_PLUGINS_PATH . FACIAL_ID . '/');
 define('FACIAL_TABLE',    $prefixeTable . 'facial');
 define('FACIAL_ADMIN',    get_root_url() . 'admin.php?page=plugin-' . FACIAL_ID);
 define('FACIAL_PUBLIC',   get_absolute_root_url() . make_index_url(array('section' => 'facial')) . '/');
@@ -55,7 +55,7 @@ add_event_handler('init', 'facial_init');
 if(defined('IN_ADMIN')) {
     // file containing all admin  handlers functions
 
-    $admin_file = FACIAL_PATH . 'include/admin_events.inc.php';
+    $admin_file = FACIAL_PATH . '/include/admin_events.inc.php';
 
     // admin plugins menu link
     add_event_handler('get_admin_plugin_menu_links', 'facial_admin_plugin_menu_links', EVENT_HANDLER_PRIORITY_NEUTRAL, $admin_file);
@@ -68,7 +68,7 @@ if(defined('IN_ADMIN')) {
     add_event_handler('perform_batch_manager_prefilters', 'facial_perform_batch_manager_prefilters', EVENT_HANDLER_PRIORITY_NEUTRAL, $admin_file);
 
     // new action in Batch Manager
-    add_event_handler('loc_end_element_set_global', 'facial_loc_end_element_set_global', EVENTR_HANDLER_PRIORITY_NEUTRAL, $admin_file);
+    add_event_handler('loc_end_element_set_global', 'facial_loc_end_element_set_global', EVENT_HANDLER_PRIORITY_NEUTRAL, $admin_file);
     add_event_handler('elemnt_set_global_action', 'facial_element_set_global_action', EVENT_HANDLER_PRIORITY_NEUTRAL, $admin_file);
 }
 else

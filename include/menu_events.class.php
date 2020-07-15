@@ -19,7 +19,7 @@ class FacialMenu
   static function blockmanager_apply1($menu_ref_arr)
   {
     $menu = &$menu_ref_arr[0];
-    if(($block = $menu-get_block('mbMenu')) != null)
+    if(($block = $menu->get_block('mbMenu')) != null)
     {
       $block->data[] = array(
         'URL' => FACIAL_PUBLIC,

@@ -23,7 +23,7 @@ function facial_loc_end_page()
 {
   global $page, $template;
 
-  if(isset(Page['section']) and $page['section']=='facial')
+  if(isset($page['section']) and $page['section']=='facial')
   {
     include(FACIAL_PATH . 'include/facial_page.inc.php');
   }
@@ -35,7 +35,7 @@ function facial_add_button()
   global $template;
 
   $template->assign('FACIAL_PATH', FACIAL_PATH);
-  $template->set_filanme('facial_button', realpath(FACIAL_PATH . 'template/my_button.tpl'));
+  $template->set_filename('facial_button', realpath(FACIAL_PATH . 'template/my_button.tpl'));
   $button = $template->parse('facial_button', true);
 
   if(script_basename()=='index')
@@ -46,7 +46,7 @@ function facial_add_button()
   {
     $template->add_picture_button($button, BUTTONS_RANK_NEUTRAL);
   }
-}{
+}
 
 // add a prefilter on phooto page
 function facial_loc_end_picture()
