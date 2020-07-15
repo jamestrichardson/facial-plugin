@@ -7,6 +7,9 @@
 // Chech whether we are indeed included by Piwigo.
 defined('FACIAL_PATH') or die('Hacking attempt!');
 
+load_language('plugin.lang', FACIAL_PATH);
+check_status(ACCESS_ADMINISTRATOR);
+
 global $template, $page, $conf;
 
 // get current tab
