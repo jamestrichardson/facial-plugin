@@ -38,4 +38,4 @@ $template->assign(array(
   'FACIAL_ADMIN' => FACIAL_ADMIN));
 
 // send page content
-$template->assign_var_from_handle('ADMIN_CONTENT', 'facial_content');
+//$template->assign_var_from_handle('ADMIN_CONTENT', 'facial_content');
