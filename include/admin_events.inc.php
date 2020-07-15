@@ -54,6 +54,8 @@ function facial_loc_end_element_set_global()
 {
   global $template;
 
+  load_language('plugin.lang', dirname(__FILE__) . '/');
+
   /*
    * CONTENT is option
    * for big contents it is advised to use a template file

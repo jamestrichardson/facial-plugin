@@ -23,3 +23,11 @@ To that effect, we will write code for:
 1. An admin panel, where the admin can admin the adminy stuff?
 2. An extension to the albums page so that we can scan albums (we might instead use batch manager to select photos that way?)
 3. Another event hook that will display the people identified in the photo
+
+## The Admin Page
+
+From the `admin` page, we want to do several things:
+
+* List all of the known faces
+* Create a face
+* Train a face

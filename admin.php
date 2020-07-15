@@ -7,35 +7,18 @@
 // Chech whether we are indeed included by Piwigo.
 defined('FACIAL_PATH') or die('Hacking attempt!');
 
-load_language('plugin.lang', FACIAL_PATH);
-check_status(ACCESS_ADMINISTRATOR);
+//load_language('plugin.lang', FACIAL_PATH);
+//check_status(ACCESS_ADMINISTRATOR);
 
-global $template, $page, $conf;
+global $template;
 
-// get current tab
-$page['tab'] = isset($_GET['tab']) ? $_GET['tab'] : $page['tab'] = 'home';
+// Add the admin.tpl template
+// echo "<!-- loading template: " . dirname(__FILE__) . '/template/admin.tpl -->';
+$template->set_filenames(
+  array(
+    'plugin_admin_content' => dirname(__FILE__) . '/template/admin.tpl'
+  )
+);
 
-// plugin tabsheet is not present on photo page
-if($page['tab'] != 'photo') {
-  // tabsheet
-  include_once(PHPWG_ROOT_PATH . 'admin/include/tabsheet.class.php');
-  $tabsheet = new tabsheet();
-  $tabsheet->set_id('facial');
-
-  $tabsheet->add('home', l10n('Welcome'), FACIAL_ADMIN . '-home');
-  $tabsheet->add('config', l10n('Configuration'), FACIAL_ADMIN . '-config');
-  $tabsheet->select($page['tab']);
-  $tabsheet->assign();
-}
-
-// include page
-include(FACIAL_PATH . 'admin/' . $page['tab'] . '.php');
-
-//template vars
-$template->assign(array(
-  'FACIAL_PATH' => FACIAL_PATH, // used for images, scripts, ... access
-  'FACIAL_ABS_PATH' => realpath(FACIAL_PATH), // used for template inclusion (Smarty needs real path)
-  'FACIAL_ADMIN' => FACIAL_ADMIN));
-
-// send page content
-//$template->assign_var_from_handle('ADMIN_CONTENT', 'facial_content');
+// this actually puts the data from the template into the screen
+$template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
