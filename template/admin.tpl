@@ -6,7 +6,7 @@
 <form action='{$FACIAL_PATH}-train-update' method='POST'>
 <input type="hidden" name="userid" value="{$train_user_id}" />
 <fieldset>
-  <legend>{'Train Photos for: '|@translate}{$train_user_name}</legend>
+  <legend>{'Configuration for: '|@translate}{$train_user_name}</legend>
   <div align="left">{'Which album contains the photos of '|@translate}{$train_user_name}{' that we want to evaluate?'|@translate}</div>
   <div align="left">{'Please note that currently this table does not map out a good heiracle album structure.'|@translate}</div>
   <table width="30%">

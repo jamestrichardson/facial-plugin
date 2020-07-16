@@ -20,7 +20,33 @@ load_language('plugin.lang', FACIAL_PATH);
 check_status(ACCESS_ADMINISTRATOR);
 
 if(isset($_GET['tab'])) {
+  echo "<!-- tab is set to: " . $_GET['tab'] . " -->";
   switch($_GET['tab']) {
+    case 'edit':
+    case 'train':
+      $train = 1;
+      if(!isset($_GET['id'])) {
+        array_push($page['errors'], l10n('Error looking up user for training purposes.'));
+      }
+      else {
+        $train_user_id = $_GET['id'];
+    
+        $query = sprintf('SELECT * FROM %s WHERE `id` = %d;', FACIAL_TBL_PEOPLE, $train_user_id);
+        $result = pwg_query($query);
+        $row = pwg_db_fetch_assoc($result);
+
+        $train_user_id = $row['id'];
+        $train_user_name = $row['person_name'];
+
+        // TODO: This is pretty insecure. How do we make sure they only have access to the albums they are supposed to?
+        $query = sprintf('SELECT * FROM piwigo_categories WHERE `status` like "public"');
+        $result = pwg_query($query);
+        while($row = pwg_db_fetch_assoc($result)) {
+          echo "<!-- found: " . $row['id'] . " and " . $row['name'] . " -->";
+          $template->append('train_albums', array('id' => $row['id'], 'name' => $row['name']));
+        }
+      }
+    break;
     case 'train-update':
       //echo "<!-- update train tab branch: " . $_GET['tab'] . " -->";
       $userid = pwg_db_real_escape_string($_REQUEST['userid']);
@@ -32,31 +58,9 @@ if(isset($_GET['tab'])) {
     default:
       echo "<!-- default train tab branch: " . $_GET['tab'] . " -->";
   }
-
-  $train = 1;
-  if(!isset($_GET['id'])) {
-    array_push($page['errors'], l10n('Error looking up user for training purposes.'));
-  }
-  else {
-    $train_user_id = $_GET['id'];
-    
-    $query = sprintf('SELECT * FROM %s WHERE `id` = %d;', FACIAL_TBL_PEOPLE, $train_user_id);
-    $result = pwg_query($query);
-    $row = pwg_db_fetch_assoc($result);
-
-    $train_user_id = $row['id'];
-    $train_user_name = $row['person_name'];
-
-    // TODO: This is pretty insecure. How do we make sure they only have access to the albums they are supposed to?
-    $query = sprintf('SELECT * FROM piwigo_categories WHERE `status` like "public"');
-    $result = pwg_query($query);
-    while($row = pwg_db_fetch_assoc($result)) {
-      echo "<!-- found: " . $row['id'] . " and " . $row['name'] . " -->";
-      $template->append('train_albums', array('id' => $row['id'], 'name' => $row['name']));
-    }
-  }
 }
-
+  
+-
 // Add the admin.tpl template
 $template->set_filenames(
   array(
