@@ -41,6 +41,8 @@ define('FACIAL_TABLE',    $prefixeTable . 'facial');
 define('FACIAL_ADMIN',    get_root_url() . 'admin.php?page=plugin-' . FACIAL_ID);
 define('FACIAL_PUBLIC',   get_absolute_root_url() . make_index_url(array('section' => 'facial')) . '/');
 define('FACIAL_DIR',      PHPWG_ROOT_PATH . PWG_LOCAL_DIR . 'facial/');
+define('FACIAL_TBL_MAIN',     $prefixeTable . 'facial');
+define('FACIAL_TBL_PEOPLE',   $prefixeTable . 'facial_people');
 
 // +-----------------------------------------------------------------------+
 // | Add event handlers                                                    |
