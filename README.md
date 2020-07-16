@@ -31,3 +31,9 @@ From the `admin` page, we want to do several things:
 * List all of the known faces
 * Create a face
 * Train a face
+
+## The Database
+
+The following tables are created as part of this plugin:
+
+* Known People

@@ -14,7 +14,6 @@ class facial_maintain extends PluginMaintain
     'option3' => 'two',
     );
 
-  private $table;
   private $table_people;
   private $dir;
 
@@ -25,7 +24,6 @@ class facial_maintain extends PluginMaintain
     global $prefixeTable;
 
     // Class members can't be declared with computed values so initialization is done here
-    $this->table = $prefixeTable . 'facial';
     $this->table_people = $prefixeTable . 'facial_people';
     $this->dir = PHPWG_ROOT_PATH . PWG_LOCAL_DIR . 'facial/';
   }
@@ -59,34 +57,12 @@ class facial_maintain extends PluginMaintain
       conf_update_param('facial', $old_conf, true);
     }
 
-    // add a new table
-    pwg_query('
-CREATE TABLE IF NOT EXISTS `'. $this->table .'` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `field1` mediumint(8) DEFAULT NULL,
-  `field2` varchar(64) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
-;');
-
-    // add a new column to existing table
-    $result = pwg_query('SHOW COLUMNS FROM `'.IMAGES_TABLE.'` LIKE "facial";');
-    if (!pwg_db_num_rows($result)) {
-      pwg_query('ALTER TABLE `' . IMAGES_TABLE . '` ADD `facial` TINYINT(1) NOT NULL DEFAULT 0;');
-    }
-
-    // create a local directory
-    if (!file_exists($this->dir)) {
-      mkdir($this->dir, 0755);
-    }
-
-
-
     // Create the table for the list of people we know about
     pwg_query('
 CREATE TABLE IF NOT EXISTS `' . $this->table_people . '` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `person_name` varchar(64) NOT NULL,
+  `train_album` smallint(5) unsigned,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8
 ;');
@@ -139,19 +115,6 @@ CREATE TABLE IF NOT EXISTS `' . $this->table_people . '` (
     conf_delete_param('facial');
 
     // delete table
-    pwg_query('DROP TABLE `'. $this->table .'`;');
     pwg_query('DROP TABLE `' . $this->table_people . '`;');
-
-    // delete field
-    pwg_query('ALTER TABLE `'. IMAGES_TABLE .'` DROP `facial`;');
-
-    // delete local folder
-    // use a recursive function if you plan to have nested directories
-    foreach (scandir($this->dir) as $file)
-    {
-      if ($file == '.' or $file == '..') continue;
-      unlink($this->dir.$file);
-    }
-    rmdir($this->dir);
   }
 }
