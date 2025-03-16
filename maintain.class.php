@@ -14,7 +14,6 @@ class facial_maintain extends PluginMaintain
     'option3' => 'two',
     );
 
-  private $table_people;
   private $dir;
 
   function __construct($plugin_id)
@@ -24,8 +23,24 @@ class facial_maintain extends PluginMaintain
     global $prefixeTable;
 
     // Class members can't be declared with computed values so initialization is done here
-    $this->table_people = $prefixeTable . 'facial_people';
     $this->dir = PHPWG_ROOT_PATH . PWG_LOCAL_DIR . 'facial/';
+  }
+
+    /**
+   * Add an error message about the imageRotate plugin not being installed.
+   *
+   * @param string[] $errors The error array to add to.
+   */
+  protected function addFacialError(&$errors)
+  {
+    load_language('plugin.lang', __DIR__ . '/');
+    $msg = sprintf(l10n('To install this plugin, you need to install the facial plugin first.'));
+    if(is_array($errors)) {
+      array_push($errors, $msg);
+    }
+    else {
+      $errors = array($msg);
+    }
   }
 
   /**
@@ -38,36 +53,27 @@ class facial_maintain extends PluginMaintain
   {
     global $conf;
 
-    // add config parameter
-    if (empty($conf['facial']))
-    {
-      // conf_update_param well serialize and escape array before database insertion
-      // the third parameter indicates to update $conf['facial'] global variable as well
-      conf_update_param('facial', $this->default_conf, true);
+    if(!this->facial_installed) {
+      $this->addFacialError(errors: &$errors);
     }
-    else
-    {
-      $old_conf = safe_unserialize($conf['facial']);
-
-      if (empty($old_conf['option3']))
-      { // use case: this parameter was added in a new version
-        $old_conf['option3'] = 'two';
+    else {
+      if(empty($conf['facial']))
+      {
+          // conf_update_param well serialize and escape array before database insertion
+          // the third parameter indicates to update $conf['easyrotate'] global variable as well
+          conf_update_param('facial', $this->default_conf, true);
+      }
+      else
+      {
+        $old_conf = safe_unserialize($conf['facial']);
+        conf_update_param('facial', $old_conf, true);
       }
 
-      conf_update_param('facial', $old_conf, true);
+      // create a local directory
+      if (!file_exists($this->dir)) {
+        mkdir($this->dir, 0755);
+      }
     }
-
-    // Create the table for the list of people we know about
-    pwg_query('
-CREATE TABLE IF NOT EXISTS `' . $this->table_people . '` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `person_name` varchar(64) NOT NULL,
-  `train_album` smallint(5) unsigned,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8
-;');
-
-
   }
 
   /**
@@ -78,6 +84,16 @@ CREATE TABLE IF NOT EXISTS `' . $this->table_people . '` (
    */
   function activate($plugin_version, &$errors=array())
   {
+    global $pwg_loaded_plugins;
+    $facial_active = false;
+
+    if(array_key_exists(key: 'facial', array: $pwg_loaded_plugins)) {
+      $facial_active = $pwg_loaded_plugins['facial']['state'] == "active";
+    }
+
+    if(!$this->facial_installed || !$facial_active) {
+      $this->addFacialImageError(errors: &$errors);
+    }
   }
 
   /**
@@ -98,8 +114,6 @@ CREATE TABLE IF NOT EXISTS `' . $this->table_people . '` (
    */
   function update($old_version, $new_version, &$errors=array())
   {
-    // I (mistic100) chosed to handle install and update in the same method
-    // you are free to do otherwize
     $this->install($new_version, $errors);
   }
 
@@ -114,7 +128,12 @@ CREATE TABLE IF NOT EXISTS `' . $this->table_people . '` (
     // delete configuration
     conf_delete_param('facial');
 
-    // delete table
-    pwg_query('DROP TABLE `' . $this->table_people . '`;');
+    // Delete Local Folder
+    foreach (scandir(directory: $this->dir) as $file) {
+      if($file == '.' or $file == '..') continue;
+      unlink(filename: $this->dir.$file);
+    }
+
+    rmdir(directory: $this->dir);
   }
 }

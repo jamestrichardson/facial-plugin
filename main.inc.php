@@ -8,7 +8,7 @@
   Author URI: https://teknofile.org
 */
 
-/** 
+/**
   * This is the main file of the plugin, called by Piwigo in "include/common.inc.php" line 137.
   * At this point of the code, Piwigo is not completelyu initialized, so nothing should be done directly
   * except define constants and event handlers (see http://piwigo.org/doc/doku.php?id=dev:plugins)
@@ -37,12 +37,9 @@ global $prefixeTable;
 
 define('FACIAL_ID',       basename(dirname(__FILE__)));
 define('FACIAL_PATH',     PHPWG_PLUGINS_PATH . FACIAL_ID . '/');
-define('FACIAL_TABLE',    $prefixeTable . 'facial');
 define('FACIAL_ADMIN',    get_root_url() . 'admin.php?page=plugin-' . FACIAL_ID);
 define('FACIAL_PUBLIC',   get_absolute_root_url() . make_index_url(array('section' => 'facial')) . '/');
 define('FACIAL_DIR',      PHPWG_ROOT_PATH . PWG_LOCAL_DIR . 'facial/');
-define('FACIAL_TBL_MAIN',     $prefixeTable . 'facial');
-define('FACIAL_TBL_PEOPLE',   $prefixeTable . 'facial_people');
 
 // +-----------------------------------------------------------------------+
 // | Add event handlers                                                    |
@@ -51,7 +48,7 @@ define('FACIAL_TBL_PEOPLE',   $prefixeTable . 'facial_people');
 // init the plugin
 add_event_handler('init', 'facial_init');
 
-/*** 
+/***
  * plugin_initialization
  *  - check for updates
  *  - unserialize configuration
@@ -67,7 +64,7 @@ function facial_init()
 
   // prepare plugin configuration
   $conf['facial'] = safe_unserialize($conf['facial']);
-  
+
 }
 
 // Add an entry to the plugins menu
