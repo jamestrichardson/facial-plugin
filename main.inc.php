@@ -1,9 +1,9 @@
 <?php
 /*
+  Version: 0.0.1
   Plugin Name: facial
-  Version: auto
+  Plugin URI: http://piwigo.org/ext/index.php?eid=1008
   Description: This is a proof of concept to do some facial recognition
-  Plugin URI: auto
   Author: teknofile
   Author URI: https://teknofile.org
 */
