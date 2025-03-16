@@ -44,7 +44,6 @@ define('FACIAL_DIR',      PHPWG_ROOT_PATH . PWG_LOCAL_DIR . 'facial/');
 // +-----------------------------------------------------------------------+
 // | Add event handlers                                                    |
 // +-----------------------------------------------------------------------+
-
 // init the plugin
 add_event_handler('init', 'facial_init');
 
@@ -80,4 +79,15 @@ function facial_admin_menu($menu)
   );
 
   return $menu;
+}
+
+// This is the common way to define event fucntions: create a new function for each event you want to handle:
+if(defined('IN_ADMIN')) {
+  // File containing all admin handler functions
+  $admin_file = FACIAL_PATH . 'include/admin_events.inc.php';
+} else {
+  // File containing all public handerl functions
+  $public_file = FACIAL_PATH . 'include/public_events.inc.php'
+
+  add_event_handler('loc_end_picture', 'facial_loc_end_picture', EVENT_HANDLER_PRIORITY_NEUTRAL, $public_file);
 }
