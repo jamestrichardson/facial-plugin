@@ -8,30 +8,25 @@ defined('PHPWG_ROOT_PATH') or die('Hacking attempt!');
  */
 class facial_maintain extends PluginMaintain
 {
-  private $default_conf = array(
-    'option1' => 10,
-    'option2' => true,
-    'option3' => 'two',
-    );
-
   private $dir;
+  private $facial_installed;
 
   function __construct($plugin_id)
   {
     parent::__construct($plugin_id); // always call parent constructor
 
-    global $prefixeTable;
 
     // Class members can't be declared with computed values so initialization is done here
     $this->dir = PHPWG_ROOT_PATH . PWG_LOCAL_DIR . 'facial/';
+    $this->facial_installed = file_exists(PHPWG_PLUGINS_PATH . 'facial/main.inc.php') ? true : false;
   }
 
     /**
-   * Add an error message about the imageRotate plugin not being installed.
+   * Add an error message about the Facial plugin not being installed.
    *
    * @param string[] $errors The error array to add to.
    */
-  protected function addFacialError(&$errors)
+  protected function addFacialError(&$errors): void
   {
     load_language('plugin.lang', __DIR__ . '/');
     $msg = sprintf(l10n('To install this plugin, you need to install the facial plugin first.'));
@@ -53,8 +48,8 @@ class facial_maintain extends PluginMaintain
   {
     global $conf;
 
-    if(!this->facial_installed) {
-      $this->addFacialError(errors: &$errors);
+    if(!$this->facial_installed) {
+      $this->addFacialError($errors);
     }
     else {
       if(empty($conf['facial']))
@@ -92,7 +87,7 @@ class facial_maintain extends PluginMaintain
     }
 
     if(!$this->facial_installed || !$facial_active) {
-      $this->addFacialImageError(errors: &$errors);
+      $this->addFacialError(errors: $errors);
     }
   }
 
