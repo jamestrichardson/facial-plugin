@@ -24,7 +24,6 @@ if(basename(dirname(__FILE__)) != 'facial')
     global $page;
     $page['errors'][] = 'Facial folder name is incorrect, uninstall the plugin and rename it to "facial"';
   }
-
   return;
 }
 
@@ -54,40 +53,22 @@ add_event_handler('init', 'facial_init');
  *  - load language
  */
 
-function facial_init()
-{
-  global $conf;
-
-  // load plugin lang file
-  load_language('plugin.lang', FACIAL_PATH);
-
-  // prepare plugin configuration
-  $conf['facial'] = safe_unserialize($conf['facial']);
-
-}
-
-// Add an entry to the plugins menu
-add_event_handler('get_admin_plugin_menu_links', 'facial_admin_menu');
-function facial_admin_menu($menu)
-{
-  array_push(
-    $menu,
-    array(
-      'NAME'  =>  'Facial Admin',
-      'URL'   =>  get_admin_plugin_menu_link(dirname(__FILE__)) . '/admin.php'
-    )
-  );
-
-  return $menu;
-}
 
 // This is the common way to define event fucntions: create a new function for each event you want to handle:
-if(defined('IN_ADMIN')) {
-  // File containing all admin handler functions
-  $admin_file = FACIAL_PATH . 'include/admin_events.inc.php';
-} else {
-  // File containing all public handerl functions
-  $public_file = FACIAL_PATH . 'include/public_events.inc.php'
+if(defined('IN_ADMIN'))
+{
+  /// stuff
 
+} else
+{
+  // File containing all public handerl functions
+  $public_file = FACIAL_PATH . 'include/public_events.inc.php';
   add_event_handler('loc_end_picture', 'facial_loc_end_picture', EVENT_HANDLER_PRIORITY_NEUTRAL, $public_file);
+}
+
+
+function facial_init()
+{
+  load_language('plugin.lang', FACIAL_PATH);
+
 }

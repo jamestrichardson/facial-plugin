@@ -9,6 +9,8 @@ A PiWiGo plugin to do some facial recognition
 
 This is initially a proof of concept. That I hope to one day have functioning.
 
+* Use phpdoc: https://www.sitepoint.com/introduction-to-phpdoc/
+
 ## Introduction
 
 This plugin is to facilitate identifing which pictures do have faces within
