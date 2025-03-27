@@ -2,12 +2,12 @@
 
 A PiWiGo plugin to do some facial recognition
 
-* Internal name: `facial-plugin` (directory name in `plugins/`)
-* plugin page: TBD
+* Internal name: `facial` (directory name in `plugins/`)
+* plugin page: [PiWiGo Extention's](https://piwigo.org/ext/index.php?eid=1008)
 
 ## Development Status
 
-This is initially a proof of concept. That I hope to one day have functioning.
+Active.
 
 * Use phpdoc: https://www.sitepoint.com/introduction-to-phpdoc/
 

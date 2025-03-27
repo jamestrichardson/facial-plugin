@@ -1,0 +1,1 @@
+0.0.1 - Initial Release. This version is the initial release with basic functionality. There is limited configuration options, but lets you set a API URL / KEY to a compreface insallation and with that, on each picture page a query will be made to detect the number of faces

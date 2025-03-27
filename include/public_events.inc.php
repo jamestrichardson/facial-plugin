@@ -1,113 +1,97 @@
 <?php
+
 defined('FACIAL_PATH') or die('Hacking attempt!');
 
-/**
- *  Makes a curl call to a compreface server to determine if a face is in the image
- *
- * @param mixed $imgID
- * @return int
- */
-function facial_DetectFace(int $imgID)
-{
-  $query = '
-    SELECT
-      path
-    FROM '.IMAGES_TABLE.'
-    WHERE id = '.$imgID.'
-  ;';
-  $row = pwg_db_fetch_assoc(pwg_query($query));
-  if ($row == null) {
-    return false;
-  }
-
-  $url = ""
-  $apiKey = ""
-  $filePath = $row['path'];
-
-  if(!file_exists($filePath)) {
-    return false;
-  }
-
-  $ch = curl_init();
-  curl_setopt_array($ch, [
-    CURLOPT_URL => $url,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_POST => true,
-    CURLOPT_HTTPHEADER => [
-        "Content-Type: multipart/form-data",
-        "x-api-key: $apiKey"
-    ],
-    CURLOPT_POSTFIELDS => [
-        "file" => new CURLFile($filePath)
-    ]
-]);
-  $output = curl_exec($ch);
-
-  if (curl_errno($ch)) {
-    echo 'Error:' . curl_error($ch);
-  }
-  curl_close($ch);
-  $output = curl_exec($ch);
-
-  if (curl_errno($ch)) {
-    echo 'Error:' . curl_error($ch);
-  }
-  curl_close($ch);
-
-  $array = json_decode($output, true);
-
-  return count($array["result"]);
-
-}
-
 // add a prefilter on phooto page
-function facial_loc_end_picture()
+function facial_loc_begin_picture()
 {
-  global $template;
-  $template->set_prefilter('picture', 'facial_picture_prefilter');
+	global $template;
+	$template->set_prefilter('picture', 'facial_add_to_pic_info');
+
 }
 
-function facial_picture_prefilter($content)
+function facial_add_to_pic_info($content)
 {
-  // TODO: Most of this should probably be moved up into `facial_loc_end_picture`
-  $url = ""
-  $apiKey = ""
-  $filePath = "./upload/2025/03/14/20250314220708-726da3b1.jpg";
+	$search = '#class="imageInfoTable">#';
 
+	$replacement = 'class="imageInfoTable">
+	<div id="Facial Name" class="imageInfo">
+		<dt>{\'Facial\'|@translate}</dt>
+		<dd>
+{if $FACES}
+			Faces #: {$NUM_FACES}<br/>
+      Misc: {$FACIAL_DATA}
+{/if}
+    </dd>
+	</div>';
+
+	return preg_replace($search, $replacement, $content, 1);
+}
+
+function facial_add_image_vars_to_template()
+{
+  global $page, $template, $conf;
+
+  if(empty($page['image_id'])) {
+    return;
+  }
+
+  $imageInfo = array();
+
+  $query = 'SELECT file, path FROM ' . IMAGES_TABLE . ' WHERE id = ' . $page['image_id'] . ' LIMIT 1;';
+  $result = pwg_query($query);
+  while($row = pwg_db_fetch_assoc($result)) {
+    $imageInfo['image_file'] = $row['file'];
+    $imageInfo['image_path'] = $row['path'];
+  }
+
+  $foo = "";
+  $facialConfig = safe_unserialize($conf['facial']);
   $ch = curl_init();
   curl_setopt_array($ch, [
-    CURLOPT_URL => $url,
+    CURLOPT_URL => $facialConfig['compreface_api_url'],
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_POST => true,
     CURLOPT_HTTPHEADER => [
         "Content-Type: multipart/form-data",
-        "x-api-key: $apiKey"
+        "x-api-key: " . $facialConfig['compreface_api_key']
     ],
     CURLOPT_POSTFIELDS => [
-        "file" => new CURLFile($filePath)
+        "file" => new CURLFile($imageInfo['image_path'])
     ]
 ]);
   $output = curl_exec($ch);
 
-  global $picture, $template;
-
   if (curl_errno($ch)) {
-    echo 'Error:' . curl_error($ch);
+    $foo = curl_error($ch);
+    echo 'Error:' . $foo;
+
   }
   curl_close($ch);
 
-  $array = json_decode($output, true);
+  $facialOutput = json_decode($output, true);
+  $facialData = $facialConfig['compreface_api_url'];
+  $numFaces = 0;
 
-  $search = '{if $display_info.author and isset($INFO_AUTHOR)}';
-  $replace = '<div id="Facial" class="imageInfo">
-  <dt>{\'Facial Information\'|@translate}</dt>
-  <dd><hr /></dd>
-  <dd>Faces Detected:&nbsp;'. count($array["result"]) . '</dd>
-  <dd>Image ID:&nbsp;'. $picture['current']['id'] . '</dd>
-  <dd><hr /></dd>
-  <dd style="color:blue;">{\'Piwigo rocks!!\'|@translate}</dd>
-</div>';
+  if(isset($facialOutput['code'])) {
+    // TODO: handle errors this doesn't work
+    if($facialOutput['code'] == '28') {
+      $facialData = "Err 28: No faces detected";
+    }
+    else {
+      $facialData = $facialOutput['code'] . "Unknown Error";
+    }
+    $facialData = $facialOutput['code'];
+  }
 
-  return str_replace($search, $replace.$search, $content);
-
+  if(isset($facialOutput['result'])) {
+    $numFaces = count($facialOutput['result']);
+  }
+  $template->assign(
+    array	(
+      'FACES' => "1",
+      'NUM_FACES' => $numFaces,
+      'FACIAL_DATA' => $facialData
+    )
+  );
 }

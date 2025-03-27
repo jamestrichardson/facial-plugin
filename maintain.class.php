@@ -5,11 +5,31 @@ defined('PHPWG_ROOT_PATH') or die('Hacking attempt!');
 
 class facial_maintain extends PluginMaintain
 {
+  private $default_conf = array(
+    'compreface_api_url' => '',
+    'compreface_api_key' => ''
+  );
+
+  private $table;
+  private $dir;
+
   function __construct($plugin_id)
   {
     parent::__construct($plugin_id); // always call parent constructor
+
+    global $prefixTable;
+
+    // Class members can't be declared with computed values so initialization is done here
+    $this->table = $prefixTable . 'facial';
+    $this->dir = PHPWG_ROOT_PATH . PWG_LOCAL_DIR . 'facial/';
   }
 
+  /** 
+   * Plugin installation
+   * 
+   * Perform here all needed setup for the plugin installation such as creating the default config,
+   * add database tables, add fields to existing, create local folders, etc.
+   */
   function install($plugin_version, &$errors=array())
   {
     // Perform here all needed steps for the plugin installation such as:
@@ -17,6 +37,27 @@ class facial_maintain extends PluginMaintain
     // * Add database tables
     // * Add fields to existing tables
     // * Create local folders
+
+    global $conf;
+
+    // add config params
+    if(empty($conf['facial']))
+    {
+      // conf_update_param will serialize and escape array before database insertion
+      // the third parameter indicates to update the $conf['facial] global variable as well
+      //
+      // The goal here is to set some sane defaults if the config is empty
+      $this->default_conf['compreface_api_url'] = "enter your compreface api url here";
+      $this->default_conf['compreface_api_key'] = 'enter your compreface api key here';
+
+      // TODO: We should encrypt the api key before storing it to the DB.
+      conf_update_param('facial', $this->default_conf, true);
+    }
+    else 
+    {
+      $oldConfig = safe_unserialize($conf['facial']);
+      conf_update_param('facial', $oldConfig, true);
+    }
   }
 
   /**
