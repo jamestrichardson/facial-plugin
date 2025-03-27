@@ -24,7 +24,24 @@ class facial_maintain extends PluginMaintain
     $this->dir = PHPWG_ROOT_PATH . PWG_LOCAL_DIR . 'facial/';
   }
 
-  /** 
+   /**
+   * Add an error message about the imageRotate plugin not being installed.
+   *
+   * @param string[] $errors The error array to add to.
+   */
+  protected function addFacialError(&$errors)
+  {
+    load_language('plugin.lang', __DIR__ . '/');
+    $msg = sprintf(l10n('To install this plugin, you need to install the facial plugin first.'));
+    if(is_array($errors)) {
+      array_push($errors, $msg);
+    }
+    else {
+      $errors = array($msg);
+    }
+  }
+
+  /**
    * Plugin installation
    * 
    * Perform here all needed setup for the plugin installation such as creating the default config,
@@ -68,6 +85,16 @@ class facial_maintain extends PluginMaintain
    */
   function activate($plugin_version, &$errors=array())
   {
+    global $pwg_loaded_plugins;
+    $facial_active = false;
+
+    if(array_key_exists(key: 'facial', array: $pwg_loaded_plugins)) {
+      $facial_active = $pwg_loaded_plugins['facial']['state'] == "active";
+    }
+
+    if(!$this->facial_installed || !$facial_active) {
+      $this->addFacialImageError(errors: &$errors);
+    }
   }
 
   /**
@@ -88,8 +115,6 @@ class facial_maintain extends PluginMaintain
    */
   function update($old_version, $new_version, &$errors=array())
   {
-    // I (mistic100) chosed to handle install and update in the same method
-    // you are free to do otherwize
     $this->install($new_version, $errors);
   }
 
@@ -102,13 +127,15 @@ class facial_maintain extends PluginMaintain
    */
   function uninstall()
   {
-    // delete local folder
-    // use a recursive function if you plan to have nested directories
-    foreach (scandir($this->dir) as $file)
-    {
-      if ($file == '.' or $file == '..') continue;
-      unlink($this->dir.$file);
+    // delete configuration
+    conf_delete_param('facial');
+
+    // Delete Local Folder
+    foreach (scandir(directory: $this->dir) as $file) {
+      if($file == '.' or $file == '..') continue;
+      unlink(filename: $this->dir.$file);
     }
-    rmdir($this->dir);
+
+    rmdir(directory: $this->dir);
   }
 }

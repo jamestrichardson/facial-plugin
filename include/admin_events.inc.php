@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 defined('FACIAL_PATH') or die('Hacking attempt!');
 
 // function copyrights_admin_menu($menu) {
@@ -136,3 +137,6 @@ function facial_loc_end_element_set_unit()
     $template->append('PLUGINS_BATCH_MANAGER_UNIT_ELEMENT_SUBTEMPLATE', 'plugins/facial/template/batch_manager_unit.tpl');
 }
 
+=======
+defined('FACIAL_PATH') or die("Hacking attempt!");
+>>>>>>> master
