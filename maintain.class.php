@@ -1,32 +1,30 @@
 <?php
+
 defined('PHPWG_ROOT_PATH') or die('Hacking attempt!');
 
-/**
- * This class is used to expose maintenance methods to the plugins manager
- * It must extends PluginMaintain and be named "PLUGINID_maintain"
- * where PLUGINID is the directory name of your plugin.
- */
+
 class facial_maintain extends PluginMaintain
 {
   private $default_conf = array(
-    'option1' => 10,
-    'option2' => true,
-    'option3' => 'two',
-    );
+    'compreface_api_url' => '',
+    'compreface_api_key' => ''
+  );
 
+  private $table;
   private $dir;
 
   function __construct($plugin_id)
   {
     parent::__construct($plugin_id); // always call parent constructor
 
-    global $prefixeTable;
+    global $prefixTable;
 
     // Class members can't be declared with computed values so initialization is done here
+    $this->table = $prefixTable . 'facial';
     $this->dir = PHPWG_ROOT_PATH . PWG_LOCAL_DIR . 'facial/';
   }
 
-    /**
+   /**
    * Add an error message about the imageRotate plugin not being installed.
    *
    * @param string[] $errors The error array to add to.
@@ -45,34 +43,37 @@ class facial_maintain extends PluginMaintain
 
   /**
    * Plugin installation
-   *
-   * Perform here all needed step for the plugin installation such as create default config,
-   * add database tables, add fields to existing tables, create local folders...
+   * 
+   * Perform here all needed setup for the plugin installation such as creating the default config,
+   * add database tables, add fields to existing, create local folders, etc.
    */
   function install($plugin_version, &$errors=array())
   {
+    // Perform here all needed steps for the plugin installation such as:
+    // * Creation of default configurations
+    // * Add database tables
+    // * Add fields to existing tables
+    // * Create local folders
+
     global $conf;
 
-    if(!this->facial_installed) {
-      $this->addFacialError(errors: &$errors);
-    }
-    else {
-      if(empty($conf['facial']))
-      {
-          // conf_update_param well serialize and escape array before database insertion
-          // the third parameter indicates to update $conf['easyrotate'] global variable as well
-          conf_update_param('facial', $this->default_conf, true);
-      }
-      else
-      {
-        $old_conf = safe_unserialize($conf['facial']);
-        conf_update_param('facial', $old_conf, true);
-      }
+    // add config params
+    if(empty($conf['facial']))
+    {
+      // conf_update_param will serialize and escape array before database insertion
+      // the third parameter indicates to update the $conf['facial] global variable as well
+      //
+      // The goal here is to set some sane defaults if the config is empty
+      $this->default_conf['compreface_api_url'] = "enter your compreface api url here";
+      $this->default_conf['compreface_api_key'] = 'enter your compreface api key here';
 
-      // create a local directory
-      if (!file_exists($this->dir)) {
-        mkdir($this->dir, 0755);
-      }
+      // TODO: We should encrypt the api key before storing it to the DB.
+      conf_update_param('facial', $this->default_conf, true);
+    }
+    else 
+    {
+      $oldConfig = safe_unserialize($conf['facial']);
+      conf_update_param('facial', $oldConfig, true);
     }
   }
 
@@ -116,6 +117,7 @@ class facial_maintain extends PluginMaintain
   {
     $this->install($new_version, $errors);
   }
+
 
   /**
    * Plugin uninstallation

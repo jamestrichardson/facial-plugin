@@ -1,69 +1,97 @@
 <?php
+
 defined('FACIAL_PATH') or die('Hacking attempt!');
 
-// detect current section
-function facial_loc_end_section_init()
-{
-  global $tokens, $page, $conf;
-
-  if($tokens[0] == 'facial')
-  {
-    $page['section'] = 'facial';
-
-    // section_title is for breadcrumb, title is for page <title>
-    $page['section_title'] = '<a href="' . get_absolute_root_url() . '">' . l10n('Home') . '</a> '. $conf['level_separator'] . '<a href="' . FACIAL_PUBLIC . '">' . l10n('Facial').'</a>';
-    $page['title'] = l10n('Facial');
-    $page['body_id'] = 'theFacialPage';
-    $page['is_external'] = true; //inform piwigo that you are on a new page
-  }
-}
-
-// include public page
-function facial_loc_end_page()
-{
-  global $page, $template;
-
-  if(isset($page['section']) and $page['section']=='facial')
-  {
-    include(FACIAL_PATH . 'include/facial_page.inc.php');
-  }
-}
-
-// button on album and photo pages
-function facial_add_button()
-{
-  global $template;
-
-  $template->assign('FACIAL_PATH', FACIAL_PATH);
-  $template->set_filename('facial_button', realpath(FACIAL_PATH . 'template/my_button.tpl'));
-  $button = $template->parse('facial_button', true);
-
-  if(script_basename()=='index')
-  {
-    $template->add_index_button($button, BUTTONS_RANK_NEUTRAL);
-  }
-  else
-  {
-    $template->add_picture_button($button, BUTTONS_RANK_NEUTRAL);
-  }
-}
-
 // add a prefilter on phooto page
-function facial_loc_end_picture()
+function facial_loc_begin_picture()
 {
-  global $template;
-  $template->set_prefilter('picture', 'facial_picture_prefilter');
+	global $template;
+	$template->set_prefilter('picture', 'facial_add_to_pic_info');
+
 }
 
-function facial_picture_prefilter($content)
+function facial_add_to_pic_info($content)
 {
-  $search = '{if $displayu_info.author and isset($INFO_AUTHOR)}';
-  $replace = '
-<div id="Facial" class="imageInfo">
-  <dt>{\'Facial\'|@translate}</dt>
-  <dd style="color:orange;">{\'Piwigo rocks\'|@translate}</dd>
-</div>
-';
+	$search = '#class="imageInfoTable">#';
 
-  return str_replace($search, $replace.$search, $content);
+	$replacement = 'class="imageInfoTable">
+	<div id="Facial Name" class="imageInfo">
+		<dt>{\'Facial\'|@translate}</dt>
+		<dd>
+{if $FACES}
+			Faces #: {$NUM_FACES}<br/>
+      Misc: {$FACIAL_DATA}
+{/if}
+    </dd>
+	</div>';
+
+	return preg_replace($search, $replacement, $content, 1);
+}
+
+function facial_add_image_vars_to_template()
+{
+  global $page, $template, $conf;
+
+  if(empty($page['image_id'])) {
+    return;
+  }
+
+  $imageInfo = array();
+
+  $query = 'SELECT file, path FROM ' . IMAGES_TABLE . ' WHERE id = ' . $page['image_id'] . ' LIMIT 1;';
+  $result = pwg_query($query);
+  while($row = pwg_db_fetch_assoc($result)) {
+    $imageInfo['image_file'] = $row['file'];
+    $imageInfo['image_path'] = $row['path'];
+  }
+
+  $foo = "";
+  $facialConfig = safe_unserialize($conf['facial']);
+  $ch = curl_init();
+  curl_setopt_array($ch, [
+    CURLOPT_URL => $facialConfig['compreface_api_url'],
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_POST => true,
+    CURLOPT_HTTPHEADER => [
+        "Content-Type: multipart/form-data",
+        "x-api-key: " . $facialConfig['compreface_api_key']
+    ],
+    CURLOPT_POSTFIELDS => [
+        "file" => new CURLFile($imageInfo['image_path'])
+    ]
+]);
+  $output = curl_exec($ch);
+
+  if (curl_errno($ch)) {
+    $foo = curl_error($ch);
+    echo 'Error:' . $foo;
+
+  }
+  curl_close($ch);
+
+  $facialOutput = json_decode($output, true);
+  $facialData = $facialConfig['compreface_api_url'];
+  $numFaces = 0;
+
+  if(isset($facialOutput['code'])) {
+    // TODO: handle errors this doesn't work
+    if($facialOutput['code'] == '28') {
+      $facialData = "Err 28: No faces detected";
+    }
+    else {
+      $facialData = $facialOutput['code'] . "Unknown Error";
+    }
+    $facialData = $facialOutput['code'];
+  }
+
+  if(isset($facialOutput['result'])) {
+    $numFaces = count($facialOutput['result']);
+  }
+  $template->assign(
+    array	(
+      'FACES' => "1",
+      'NUM_FACES' => $numFaces,
+      'FACIAL_DATA' => $facialData
+    )
+  );
 }
