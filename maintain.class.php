@@ -7,7 +7,12 @@ class facial_maintain extends PluginMaintain
 {
   private $default_conf = array(
     'compreface_api_url' => '',
-    'compreface_api_key' => ''
+    'compreface_api_key' => '',
+    'compreface_recog_api_url' => '',
+    'compreface_recog_api_key' => '',
+    'compreface_protocol' => 'http',
+    'compreface_port' => 80,
+    'compreface_host' => 'localhost'
   );
 
   private $table;
@@ -43,7 +48,7 @@ class facial_maintain extends PluginMaintain
 
   /**
    * Plugin installation
-   * 
+   *
    * Perform here all needed setup for the plugin installation such as creating the default config,
    * add database tables, add fields to existing, create local folders, etc.
    */
@@ -66,15 +71,38 @@ class facial_maintain extends PluginMaintain
       // The goal here is to set some sane defaults if the config is empty
       $this->default_conf['compreface_api_url'] = "enter your compreface api url here";
       $this->default_conf['compreface_api_key'] = 'enter your compreface api key here';
+      $this->default_conf['compreface_recog_api_url'] = "enter your compreface recognition api url here";
+      $this->default_conf['compreface_recog_api_key'] = 'enter your compreface recognition api key here';
 
       // TODO: We should encrypt the api key before storing it to the DB.
       conf_update_param('facial', $this->default_conf, true);
     }
-    else 
+    else
     {
       $oldConfig = safe_unserialize($conf['facial']);
       conf_update_param('facial', $oldConfig, true);
     }
+
+    // Add the table for storing facial recognition data from compreFace
+    pwg_query('CREATE TABLE IF NOT EXISTS `' . $this->table . '` (
+      `IMAGE_ID` MEDIUMINT(8) UNSIGNED NOT NULL,
+      `TAG_ID` INT(11) NOT NULL,
+      `PROBABILITY` float NOT NULL,
+      `BOX_XMIN` SMALLINT NOT NULL,
+      `BOX_YMIN` SMALLINT NOT NULL,
+      `BOX_XMAX` SMALLINT NOT NULL,
+      `BOX_YMAX` SMALLINT NOT NULL,
+      `AGE_PROB` float,
+      `AGE_LOW` tinyint unsigned,
+      `AGE_HIGH` tinyint unsigned,
+      `GENDER_PROB` float,
+      `GENDER` enum(\'male\', \'female\'),
+      `POSE_PITCH` float,
+      `POSE_ROLL` float,
+      `POSE_YAW` float,
+      `landmarks` varchar(255),
+      PRIMARY KEY (`IMAGE_ID`, `TAG_ID`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;');
   }
 
   /**
@@ -85,16 +113,6 @@ class facial_maintain extends PluginMaintain
    */
   function activate($plugin_version, &$errors=array())
   {
-    global $pwg_loaded_plugins;
-    $facial_active = false;
-
-    if(array_key_exists(key: 'facial', array: $pwg_loaded_plugins)) {
-      $facial_active = $pwg_loaded_plugins['facial']['state'] == "active";
-    }
-
-    if(!$this->facial_installed || !$facial_active) {
-      $this->addFacialImageError(errors: &$errors);
-    }
   }
 
   /**
@@ -129,6 +147,9 @@ class facial_maintain extends PluginMaintain
   {
     // delete configuration
     conf_delete_param('facial');
+
+    // delete the facial table (for compreface)
+    pwg_query('DROP TABLE `' . $this->table . '`;');
 
     // Delete Local Folder
     foreach (scandir(directory: $this->dir) as $file) {
