@@ -28,7 +28,6 @@ if(basename(dirname(__FILE__)) != 'facial')
   return;
 }
 
-
 // +-----------------------------------------------------------------------+
 // | Define plugin constants                                               |
 // +-----------------------------------------------------------------------+
@@ -41,6 +40,10 @@ define('FACIAL_ADMIN',    get_root_url() . 'admin.php?page=plugin-' . FACIAL_ID)
 define('FACIAL_TABLE' ,   $prefixeTable . 'facial');
 define('FACIAL_PUBLIC',   get_absolute_root_url() . make_index_url(array('section' => 'facial')) . '/');
 define('FACIAL_DIR',      PHPWG_ROOT_PATH . PWG_LOCAL_DIR . 'facial/');
+
+include_once(FACIAL_PATH . 'include/functions.inc.php');
+include_once(FACIAL_PATH . 'include/functions_compreface.inc.php');
+
 
 // +-----------------------------------------------------------------------+
 // | Add event handlers                                                    |
@@ -67,6 +70,8 @@ else
   $public_file = FACIAL_PATH . 'include/public_events.inc.php';
   add_event_handler('loc_begin_picture', 'facial_loc_begin_picture', EVENT_HANDLER_PRIORITY_NEUTRAL + 5, $public_file);
   add_event_handler('loc_begin_picture', 'facial_add_image_vars_to_template', EVENT_HANDLER_PRIORITY_NEUTRAL, $public_file);
+//  add_event_handler('loc_end_picture', 'show_image_facialboxes', EVENT_HANDLER_PRIORITY_NEUTRAL + 5, $public_file);
+  add_event_handler('loc_begin_page_tail', 'show_detected_faces', EVENT_HANDLER_PRIORITY_NEUTRAL, $public_file);
 }
 
 function facial_init()
