@@ -54,9 +54,10 @@ if (isset($_POST['save_config']))
 
 // send config to template
 $template->assign(array(
-  'facial' => safe_unserialize($conf['facial']),
-  'subjects' => facial_get_subjects(),
-  ));
+  'facial' => safe_unserialize($conf['facial'])
+));
+
+$template->assign('subjects', facial_get_subjects());
 
 // define template file
 $template->set_filename('facial_content', realpath(FACIAL_PATH . 'admin/template/subjects.tpl'));
