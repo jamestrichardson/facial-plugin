@@ -59,4 +59,4 @@ $template->assign(array(
   ));
 
 // define template file
-$template->set_filename('facial_content', realpath(FACIAL_PATH . 'admin/template/config.tpl'));
+$template->set_filename('facial_content', realpath(FACIAL_PATH . 'admin/template/subjects.tpl'));
