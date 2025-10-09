@@ -43,7 +43,7 @@ class facial_maintain extends PluginMaintain
 
   /**
    * Plugin installation
-   * 
+   *
    * Perform here all needed setup for the plugin installation such as creating the default config,
    * add database tables, add fields to existing, create local folders, etc.
    */
@@ -70,7 +70,7 @@ class facial_maintain extends PluginMaintain
       // TODO: We should encrypt the api key before storing it to the DB.
       conf_update_param('facial', $this->default_conf, true);
     }
-    else 
+    else
     {
       $oldConfig = safe_unserialize($conf['facial']);
       conf_update_param('facial', $oldConfig, true);
@@ -93,7 +93,7 @@ class facial_maintain extends PluginMaintain
     }
 
     if(!$this->facial_installed || !$facial_active) {
-      $this->addFacialImageError(errors: &$errors);
+      $this->addFacialImageError($errors);
     }
   }
 
