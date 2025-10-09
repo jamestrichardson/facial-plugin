@@ -13,6 +13,7 @@ function facial_get_subjects()
     CURLOPT_URL => $facialConfig['compreface_api_url'] . '/api/v1/recognition/subjects/',
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_HTTPHEADER => [
+        "Content-Type: application/json",
         "x-api-key: " . $facialConfig['compreface_api_key']
     ],
   ]);
