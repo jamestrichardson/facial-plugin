@@ -34,7 +34,7 @@ $debug_url = isset($dbg_conf['compreface_api_url']) ? $dbg_conf['compreface_api_
 $template->assign('debug_url', $debug_url . '/api/v1/recognition/subjects/');
 
 
-$template->assign('subjects', json_encode(facial_get_subjects()));
+$template->assign('subjects', facial_get_subjects());
 
 // define template file
 $template->set_filename('facial_content', realpath(FACIAL_PATH . 'admin/template/subjects.tpl'));
