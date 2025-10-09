@@ -20,17 +20,7 @@ function facial_get_subjects()
   $response = curl_exec($ch);
   curl_close($ch);
 
-  $data = json_decode($response, true);
-
-  if(isset($data['subjects']) && is_array($data['subjects'])) {
-    foreach($data['subjects'] as $subject) {
-      if(isset($subject['name'])) {
-        $subjects[] = $subject['name'];
-      }
-    }
-  }
-
-  return $subjects;
+  return json_decode($response, true);;
 }
 
 global $conf;
