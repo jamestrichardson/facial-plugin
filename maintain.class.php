@@ -92,9 +92,9 @@ class facial_maintain extends PluginMaintain
       $facial_active = $pwg_loaded_plugins['facial']['state'] == "active";
     }
 
-    if(!$this->facial_installed || !$facial_active) {
-      $this->addFacialImageError($errors);
-    }
+    // if(!$this->facial_installed || !$facial_active) {
+    //   $this->addFacialImageError($errors);
+    // }
   }
 
   /**
