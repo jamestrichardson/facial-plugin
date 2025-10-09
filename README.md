@@ -8,12 +8,14 @@ A powerful facial recognition plugin for Piwigo that integrates with CompreFace 
 ## Features
 
 ### Face Detection and Recognition
+
 - Automatically detect faces in photos using CompreFace API
 - Identify known individuals across your photo collection
 - Batch processing support for scanning multiple photos
 - Unknown face detection and labeling system
 
 ### Management Interface
+
 - Comprehensive admin panel for face management
 - List, add, and edit known individuals
 - Train the recognition system with new faces
@@ -21,12 +23,14 @@ A powerful facial recognition plugin for Piwigo that integrates with CompreFace 
 - Monitor face detection statistics
 
 ### Gallery Integration
+
 - Display detected faces on photo pages
 - Filter photos by detected individuals
 - Batch operations through Piwigo's batch manager
 - Face count indicators in album views
 
 ### User Experience
+
 - Intuitive interface for viewing face detection results
 - Easy navigation to photos containing specific individuals
 - Support for multiple languages
@@ -35,16 +39,19 @@ A powerful facial recognition plugin for Piwigo that integrates with CompreFace 
 ## Installation
 
 ### Prerequisites
+
 1. A working Piwigo installation (version 2.9 or later)
 2. CompreFace server (self-hosted or cloud instance)
 3. PHP 7.4 or later
 4. PHP cURL extension enabled
 
 ### Installing CompreFace
+
 1. Follow the [CompreFace installation guide](https://github.com/exadel-inc/CompreFace#getting-started-with-compreface)
 2. Note down your CompreFace server URL and API key
 
 ### Plugin Installation
+
 1. Download the latest release from the [Piwigo Extensions page](https://piwigo.org/ext/index.php?eid=1008)
 2. Extract the `facial` folder to your Piwigo's `plugins/` directory
 3. Log in to your Piwigo admin panel
@@ -52,6 +59,7 @@ A powerful facial recognition plugin for Piwigo that integrates with CompreFace 
 5. Find "Facial Recognition" in the list and click "Activate"
 
 ### Configuration
+
 1. Go to Plugins → Facial Recognition
 2. Enter your CompreFace server URL and API key
 3. Configure desired detection settings:
@@ -63,11 +71,13 @@ A powerful facial recognition plugin for Piwigo that integrates with CompreFace 
 ## Usage
 
 ### Basic Operations
+
 1. **Scanning Albums**
-   - Go to the Albums administration page
-   - Select "Scan for faces" from the batch actions
-   - Choose the albums to scan
-   - Start the detection process
+
+* Go to the Albums administration page
+* Select "Scan for faces" from the batch actions
+* Choose the albums to scan
+* Start the detection process
 
 2. **Managing Known Faces**
    - Navigate to Plugins → Facial Recognition
