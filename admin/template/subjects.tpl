@@ -12,9 +12,10 @@ URL: {$debug_url}
 <table class="table table-striped" style="width: 600px; margin-top: 20px;">
   <thead>
     <tr>
-      <th style="width:40px;"></th>
-      <th>{'Subject Name'|translate}</th>
-      <th>{'Actions'|translate}</th>
+  <th style="width:40px;"></th>
+  <th>{'Subject Name'|translate}</th>
+  <th>{'Number of samples'|translate}</th>
+  <th>{'Actions'|translate}</th>
     </tr>
   </thead>
   <tbody>
@@ -22,6 +23,7 @@ URL: {$debug_url}
       <tr>
         <td><input type="checkbox" name="subject_select[]" value="{$subject}" /></td>
         <td>{$subject}</td>
+        <td>{if isset($subject_samples[$subject])}{$subject_samples[$subject]}{else}0{/if}</td>
         <td>
           <button type="button" class="rename-btn" data-subject="{$subject}">{'Rename'|translate}</button>
           <button type="button" class="delete-btn" data-subject="{$subject}">{'Delete'|translate}</button>
