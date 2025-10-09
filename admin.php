@@ -22,8 +22,10 @@ $page ['tab'] = isset($_GET['tab']) ? $_GET['tab'] : $page['tab'] = 'config';
 // tabsheet
 $tabsheet = new tabsheet();
 $tabsheet->set_id('facial');
+// TODO: Get rid of this home/welcome page if it isn't needed?
 $tabsheet->add('home', l10n('Welcome'), FACIAL_ADMIN . '-home');
 $tabsheet->add('config', l10n('Configuration'), FACIAL_ADMIN . '-config');
+$tabsheet->add('subjects', l10n('Subjects'), FACIAL_ADMIN . '-subjects');
 $tabsheet->select($page['tab']);
 $tabsheet->assign();
 
