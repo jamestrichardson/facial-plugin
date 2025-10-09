@@ -21,11 +21,11 @@ function facial_get_subjects()
   curl_close($ch);
 
   $data = json_decode($response, true);
-  return $data;
-  if(isset($data['result']) && is_array($data['result'])) {
-    foreach($data['result'] as $collection) {
-      if(isset($collection['name'])) {
-        $subjects[] = $collection['name'];
+
+  if(isset($data['subjects']) && is_array($data['subjects'])) {
+    foreach($data['subjects'] as $subject) {
+      if(isset($subject['name'])) {
+        $subjects[] = $subject['name'];
       }
     }
   }
