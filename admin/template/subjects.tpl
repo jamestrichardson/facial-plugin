@@ -5,6 +5,10 @@
   <h2>{'CompreFace Subjects'|translate}</h2>
 </div>
 
+<hr />
+URL: ${debug_url}
+<hr />
+
 <table class="table table-striped" style="width: 400px; margin-top: 20px;">
   <thead>
     <tr>

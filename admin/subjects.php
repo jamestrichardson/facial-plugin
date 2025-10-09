@@ -31,31 +31,16 @@ function facial_get_subjects()
   return $subjects;
 }
 
+global $conf;
 // $conf['facial'] = array(
 //   'compreface_api_url' => 'foo',
 //   'compreface_api_key' => 'bar',
 // );
 
-// +-----------------------------------------------------------------------+
-// | Configuration tab                                                     |
-// +-----------------------------------------------------------------------+
+$dbg_conf = safe_unserialize($conf['facial']);
+$debug_url = isset($dbg_conf['compreface_api_url']) ? $dbg_conf['compreface_api_url'] : 'not set';
+$template->assign('debug_url', $debug_url . '/api/v1/recognition/subjects/');
 
-// save config
-// if (isset($_POST['save_config']))
-// {
-//   $conf['facial'] = array(
-//     'compreface_api_url' => isset($_POST['compreface_api_url']) ? $_POST['compreface_api_url'] : "default__url",
-//     'compreface_api_key' => isset($_POST['compreface_api_key']) ? $_POST['compreface_api_key'] : "enter_key_here",
-//     );
-
-//   conf_update_param('facial', $conf['facial']);
-//   $page['infos'][] = l10n('Information data registered in database');
-// }
-
-// send config to template
-// $template->assign(array(
-//   'facial' => safe_unserialize($conf['facial'])
-// ));
 
 $template->assign('subjects', facial_get_subjects());
 
