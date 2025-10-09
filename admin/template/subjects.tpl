@@ -16,11 +16,12 @@ URL: {$debug_url}
     </tr>
   </thead>
   <tbody>
-    {foreach from=$subjects item=subject}
+    {$subjects|@implode:", "}
+    {* {foreach from=$subjects item=subject}
       <tr>
         <td>{$subject}</td>
       </tr>
-    {/foreach}
+    {/foreach} *}
   </tbody>
 </table>
 {footer_script}
