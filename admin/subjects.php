@@ -23,7 +23,7 @@ function facial_get_subjects()
   $data = json_decode($response, true);
   if (isset($data['subjects']) && is_array($data['subjects'])) {
     foreach ($data['subjects'] as $subject) {
-      $subjects[] = $subject['subject'];
+      $subjects[] = $subject;
     }
 
   }
