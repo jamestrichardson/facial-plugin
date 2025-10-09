@@ -16,7 +16,7 @@ URL: {$debug_url}
     </tr>
   </thead>
   <tbody>
-    {$subjects|@implode:", "}
+    {$subjects}
     {* {foreach from=$subjects item=subject}
       <tr>
         <td>{$subject}</td>
