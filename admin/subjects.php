@@ -20,6 +20,8 @@ function facial_get_subjects()
   $response = curl_exec($ch);
   curl_close($ch);
 
+  return $response;
+
   $data = json_decode($response, true);
   if(isset($data['result']) && is_array($data['result'])) {
     foreach($data['result'] as $collection) {
