@@ -1,10 +1,10 @@
 <?php
 defined('FACIAL_PATH') or die('Hacking attempt!');
 
-global $conf;
-
 function facial_get_subjects()
 {
+  global $conf;
+
   $subjects = array();
 
   $facialConfig = safe_unserialize($conf['facial']);
@@ -41,21 +41,21 @@ function facial_get_subjects()
 // +-----------------------------------------------------------------------+
 
 // save config
-if (isset($_POST['save_config']))
-{
-  $conf['facial'] = array(
-    'compreface_api_url' => isset($_POST['compreface_api_url']) ? $_POST['compreface_api_url'] : "default__url",
-    'compreface_api_key' => isset($_POST['compreface_api_key']) ? $_POST['compreface_api_key'] : "enter_key_here",
-    );
+// if (isset($_POST['save_config']))
+// {
+//   $conf['facial'] = array(
+//     'compreface_api_url' => isset($_POST['compreface_api_url']) ? $_POST['compreface_api_url'] : "default__url",
+//     'compreface_api_key' => isset($_POST['compreface_api_key']) ? $_POST['compreface_api_key'] : "enter_key_here",
+//     );
 
-  conf_update_param('facial', $conf['facial']);
-  $page['infos'][] = l10n('Information data registered in database');
-}
+//   conf_update_param('facial', $conf['facial']);
+//   $page['infos'][] = l10n('Information data registered in database');
+// }
 
 // send config to template
-$template->assign(array(
-  'facial' => safe_unserialize($conf['facial'])
-));
+// $template->assign(array(
+//   'facial' => safe_unserialize($conf['facial'])
+// ));
 
 $template->assign('subjects', facial_get_subjects());
 
