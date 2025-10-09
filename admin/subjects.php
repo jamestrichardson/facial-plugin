@@ -20,9 +20,8 @@ function facial_get_subjects()
   $response = curl_exec($ch);
   curl_close($ch);
 
-  return $response;
-
   $data = json_decode($response, true);
+  return $data;
   if(isset($data['result']) && is_array($data['result'])) {
     foreach($data['result'] as $collection) {
       if(isset($collection['name'])) {
@@ -45,7 +44,7 @@ $debug_url = isset($dbg_conf['compreface_api_url']) ? $dbg_conf['compreface_api_
 $template->assign('debug_url', $debug_url . '/api/v1/recognition/subjects/');
 
 
-$template->assign('subjects', serialize(facial_get_subjects()));
+$template->assign('subjects', facial_get_subjects());
 
 // define template file
 $template->set_filename('facial_content', realpath(FACIAL_PATH . 'admin/template/subjects.tpl'));
