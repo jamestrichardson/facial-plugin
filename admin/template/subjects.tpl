@@ -6,7 +6,7 @@
 </div>
 
 <hr />
-URL: ${debug_url}
+URL: {$debug_url}
 <hr />
 
 <table class="table table-striped" style="width: 400px; margin-top: 20px;">
