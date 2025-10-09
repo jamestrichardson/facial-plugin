@@ -12,9 +12,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>{$subjects}</td>
-    </tr>
+    {foreach from=$subjects item=subject}
+      <tr>
+        <td>{$subject}</td>
+      </tr>
+    {/foreach}
   </tbody>
 </table>
 {footer_script}
