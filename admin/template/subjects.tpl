@@ -9,16 +9,23 @@
 URL: {$debug_url}
 <hr />
 
-<table class="table table-striped" style="width: 400px; margin-top: 20px;">
+<table class="table table-striped" style="width: 600px; margin-top: 20px;">
   <thead>
     <tr>
-      <th>{'Subjects'|translate}</th>
+      <th style="width:40px;"></th>
+      <th>{'Subject Name'|translate}</th>
+      <th>{'Actions'|translate}</th>
     </tr>
   </thead>
   <tbody>
     {foreach from=$subjects item=subject}
       <tr>
+        <td><input type="checkbox" name="subject_select[]" value="{$subject}" /></td>
         <td>{$subject}</td>
+        <td>
+          <button type="button" class="rename-btn" data-subject="{$subject}">{'Rename'|translate}</button>
+          <button type="button" class="delete-btn" data-subject="{$subject}">{'Delete'|translate}</button>
+        </td>
       </tr>
     {/foreach}
   </tbody>
