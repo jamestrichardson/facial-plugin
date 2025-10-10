@@ -42,6 +42,8 @@ define('FACIAL_TABLE' ,   $prefixeTable . 'facial');
 define('FACIAL_PUBLIC',   get_absolute_root_url() . make_index_url(array('section' => 'facial')) . '/');
 define('FACIAL_DIR',      PHPWG_ROOT_PATH . PWG_LOCAL_DIR . 'facial/');
 
+include_once(FACIAL_PATH . 'include/functions.inc.php');
+
 // +-----------------------------------------------------------------------+
 // | Add event handlers                                                    |
 // +-----------------------------------------------------------------------+
@@ -65,16 +67,26 @@ else
 {
   // File containing all public handerl functions
   $public_file = FACIAL_PATH . 'include/public_events.inc.php';
-  add_event_handler('loc_begin_picture', 'facial_loc_begin_picture', EVENT_HANDLER_PRIORITY_NEUTRAL + 5, $public_file);
-  add_event_handler('loc_begin_picture', 'facial_add_image_vars_to_template', EVENT_HANDLER_PRIORITY_NEUTRAL, $public_file);
+
+//  add_event_handler('loc_begin_picture', 'facial_loc_begin_picture', EVENT_HANDLER_PRIORITY_NEUTRAL + 5, $public_file);
+//  add_event_handler('loc_begin_picture', 'facial_add_image_vars_to_template', EVENT_HANDLER_PRIORITY_NEUTRAL, $public_file);
+
+  add_event_handler('loc_end_picture', 'facial_command_center', EVENT_HANDLER_PRIORITY_NEUTRAL, $public_file);
+  add_event_handler('loc_begin_picture', 'facial_form_assign_subjects', EVENT_HANDLER_PRIORITY_NEUTRAL, $public_file);
 }
 
 function facial_init()
 {
-  global $conf;
+  global $conf, $logger;
 
+  //$logger->debug('facial_init called');
   load_language('plugin.lang', FACIAL_PATH);
 
   // Prepare plugin configuration
   $conf['facial'] = safe_unserialize($conf['facial']);
 }
+
+// function facial_form_assign_subjects()
+// {
+//   return; // --- IGNORE ---
+// }

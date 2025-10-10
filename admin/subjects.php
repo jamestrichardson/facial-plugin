@@ -1,46 +1,41 @@
 <?php
 defined('FACIAL_PATH') or die('Hacking attempt!');
 
-function facial_get_subjects()
-{
-  global $conf;
+global $conf, $logger;
 
-  $subjects = array();
+if (isset($_POST['form_type']) && $_POST['form_type'] === 'subject_action') {
+  // Each subject row is its own form, so subject_name is always set
+  $subject = isset($_POST['subject_name']) ? $_POST['subject_name'] : null;
+  $logger->debug("Subject action form submitted. Subject: " . var_export($subject, true));
 
-  $facialConfig = safe_unserialize($conf['facial']);
-  $ch = curl_init();
-  curl_setopt_array($ch, [
-    CURLOPT_URL => $facialConfig['compreface_api_url'] . '/api/v1/recognition/subjects/',
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_HTTPHEADER => [
-        "Content-Type: application/json",
-        "x-api-key: " . $facialConfig['compreface_api_key']
-    ],
-  ]);
-  $response = curl_exec($ch);
-  curl_close($ch);
-
-  $data = json_decode($response, true);
-  if (isset($data['subjects']) && is_array($data['subjects'])) {
-    foreach ($data['subjects'] as $subject) {
-      $subjects[] = $subject;
+  if ($subject) {
+    if (isset($_POST['delete'])) {
+    $logger->debug("Delete requested for subject: $subject");
+      facial_delete_subject($subject);
+      $logger->debug("facial_delete_subject called for: $subject");
+    } elseif (isset($_POST['rename'])) {
+      $new_name = isset($_POST['new_name']) ? trim($_POST['new_name']) : '';
+      $logger->debug("Rename requested for subject: $subject to new name: $new_name");
+      if ($new_name !== '') {
+        facial_rename_subject($subject, $new_name);
+        $logger->debug("facial_rename_subject called for: $subject to $new_name");
+      } else {
+        $logger->debug("No new name provided for subject: $subject");
+      }
+    } else {
+      $logger->debug("No valid action taken for subject: $subject");
     }
-
+  } else {
+      $logger->debug("No subject specified for action.");
   }
-
-  return $subject;
 }
 
-global $conf;
-// $conf['facial'] = array(
-//   'compreface_api_url' => 'foo',
-//   'compreface_api_key' => 'bar',
-// );
-
-$dbg_conf = safe_unserialize($conf['facial']);
-$debug_url = isset($dbg_conf['compreface_api_url']) ? $dbg_conf['compreface_api_url'] : 'not set';
-$template->assign('debug_url', $debug_url . '/api/v1/recognition/subjects/');
-
+if (isset($_POST['form_type']) && $_POST['form_type'] === 'add_subject') {
+  if (isset($_POST['new_subject']) && !empty($_POST['new_subject'])) {
+    $new_subject = trim($_POST['new_subject']);
+    facial_add_subject($new_subject);
+  }
+}
 
 $template->assign('subjects', facial_get_subjects());
 

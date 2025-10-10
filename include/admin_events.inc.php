@@ -1,17 +1,5 @@
 <?php
-<<<<<<< HEAD
 defined('FACIAL_PATH') or die('Hacking attempt!');
-
-// function copyrights_admin_menu($menu) {
-//   array_push(
-//     $menu,
-//     array(
-//       'NAME'  => 'Copyrights',
-//       'URL'   => get_admin_plugin_menu_link(FACIAL_ADMIN)
-//     )
-//   );
-//   return $menu;
-// }
 
 /**
  * add a tab on photo properties page
@@ -121,22 +109,18 @@ function facial_add_tab_users_modal()
 
 /**
  * add a prefilter on batch manager unit
- * 
+ *
  * PLUGINS_BATCH_MANAGER_UNIT_ELEMENT_SUBTEMPLATE is the hook for your HTML injection in the batch manager unit mode page
- * 
+ *
  * If your data is located within the piwigo_images table in the database it will be loaded by default with the template and doesn't need to be pre-assigned here
  * You can directly use it by calling $element.[dataName] in your template
  */
 function facial_loc_end_element_set_unit()
 {
     global $template, $page;
-    
+
     $template->assign(array(
         'FACIAL_PATH' => FACIAL_PATH,
     ));
     $template->append('PLUGINS_BATCH_MANAGER_UNIT_ELEMENT_SUBTEMPLATE', 'plugins/facial/template/batch_manager_unit.tpl');
 }
-
-=======
-defined('FACIAL_PATH') or die("Hacking attempt!");
->>>>>>> master
