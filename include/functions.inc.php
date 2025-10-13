@@ -284,37 +284,8 @@ function facial_rename_subject($oldName, $newName)
   $logger->debug("facial_rename_subject called with oldName: $oldName, newName: $newName");
   $logger->debug("facial_rename_subject is not implemented yet.");
 
-  return;
-
-  $baseUrl = facial_get_api_base_url();
-  $apiKey = facial_get_recognition_api_key();
-  $ch = curl_init();
-  $payload = json_encode(["subject" => $newName]);
-  curl_setopt_array($ch, [
-    CURLOPT_URL => $baseUrl . '/recognition/subjects/' . urlencode($oldName),
-    CURLOPT_CUSTOMREQUEST => 'PATCH',
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_HTTPHEADER => [
-      "Content-Type: application/json",
-      "x-api-key: $apiKey"
-    ],
-    CURLOPT_POSTFIELDS => $payload
-  ]);
-  $response = curl_exec($ch);
-  $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-  if (curl_errno($ch)) {
-    if (isset($logger)) $logger->error('facial_rename_subject cURL error: ' . curl_error($ch));
-    curl_close($ch);
-    return false;
-  }
-  curl_close($ch);
-  if ($httpCode === 200) {
-    if (isset($logger)) $logger->debug("Renamed subject '$oldName' to '$newName' via Compreface API.");
-    return true;
-  } else {
-    if (isset($logger)) $logger->error("Failed to rename subject '$oldName' to '$newName'. HTTP code: $httpCode. Response: $response");
-    return false;
-  }
+  // Not implemented: subject renaming via Compreface API is not yet supported.
+  return false;
 }
 
 /**
