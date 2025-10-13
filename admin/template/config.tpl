@@ -57,11 +57,11 @@ jQuery(".showInfo").tipTip({
       <input type="checkbox" id="facial_cf_ssl" name="facial_cf_ssl" value="1" {if $facial.facial_cf_ssl}checked{/if} />
     </li>
     <li>
-      <label for="facial_cf_api_recoginition_key">
+      <label for="facial_cf_api_recognition_key">
         {'Recognition API Key'|translate}
         <span class="showInfo" title="API key for recognition endpoint.">&#9432;</span>
       </label><br>
-      <input type="text" id="facial_cf_api_recoginition_key" name="facial_cf_api_recoginition_key" value="{$facial.facial_cf_api_recoginition_key}" placeholder="Recognition API key" style="width: 350px;" />
+      <input type="text" id="facial_cf_api_recognition_key" name="facial_cf_api_recognition_key" value="{$facial.facial_cf_api_recognition_key}" placeholder="Recognition API key" style="width: 350px;" />
     </li>
     <li>
       <label for="facial_cf_api_detection_key">

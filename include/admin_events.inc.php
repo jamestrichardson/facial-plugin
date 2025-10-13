@@ -177,25 +177,27 @@ function facial_batch_global_submit($action, $collection)
         an unknown face.
       */
       $faces = facial_recognize_faces_by_image_id($image_id);
-      foreach ($faces as $face)
-      {
-        $logger->debug('Face detected with subjects: '.var_export($face['subjects'], true));
-        if (count($face['subjects']) > 0 && $face['subjects'][0]['similarity'] < 0.95)
+      if (is_array($faces)) {
+        foreach ($faces as $face)
         {
-          // unknown face, it has a subject, but under the threshold of similarity that we know about
-          $logger->debug("Unknown face: " . count($face['subjects']) . " subjects, similarity: " . $face['subjects'][0]['similarity']);
-          $logger->debug('Unknown face detected, adding unknown-face tag');
-          facial_add_tag_to_image('unknown-face', $image_id);
+          $logger->debug('Face detected with subjects: '.var_export($face['subjects'], true));
+          if (count($face['subjects']) > 0 && $face['subjects'][0]['similarity'] < 0.95)
+          {
+            // unknown face, it has a subject, but under the threshold of similarity that we know about
+            $logger->debug("Unknown face: " . count($face['subjects']) . " subjects, similarity: " . $face['subjects'][0]['similarity']);
+            $logger->debug('Unknown face detected, adding unknown-face tag');
+            facial_add_tag_to_image('unknown-face', $image_id);
 
-          // If it's an unknown face, I'd like to generate a UUID and add it to the CompreFace system
-          // What will need to happen though is we'll need a system to "combine" known faces together
-        }
-        elseif (count($face['subjects']) > 0 && $face['subjects'][0]['similarity'] >= 0.95)
-        {
-          // recognized face
-          $subject_name = $face['subjects'][0]['subject'];
-          $logger->debug("Recognized face: $subject_name, adding tag to image");
-          facial_add_tag_to_image($subject_name, $image_id);
+            // If it's an unknown face, I'd like to generate a UUID and add it to the CompreFace system
+            // What will need to happen though is we'll need a system to "combine" known faces together
+          }
+          elseif (count($face['subjects']) > 0 && $face['subjects'][0]['similarity'] >= 0.95)
+          {
+            // recognized face
+            $subject_name = $face['subjects'][0]['subject'];
+            $logger->debug("Recognized face: $subject_name, adding tag to image");
+            facial_add_tag_to_image($subject_name, $image_id);
+          }
         }
       }
     }
