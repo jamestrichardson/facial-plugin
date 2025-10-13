@@ -21,6 +21,9 @@ function facial_generate_face_thumbnail($imagePath, $x_min, $y_min, $x_max, $y_m
 
   // Get image info and create resource
   $imageInfo = getimagesize($imagePath);
+  if ($imageInfo === false) {
+    return false;
+  }
   $mimeType = $imageInfo['mime'];
 
   switch ($mimeType) {
