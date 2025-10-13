@@ -177,7 +177,7 @@ function facial_batch_global_submit($action, $collection)
       if (is_array($faces)) {
         foreach ($faces as $face)
         {
-          $logger->debug('Face detected with subjects: '.var_export($face['subjects'], true));
+          //$logger->debug('Face detected with subjects: '.var_export($face['subjects'], true));
           if (count($face['subjects']) > 0 && $face['subjects'][0]['similarity'] < 0.95)
           {
             // unknown face, it has a subject, but under the threshold of similarity that we know about
