@@ -62,6 +62,8 @@ add_event_handler('init', 'facial_init');
 if(defined('IN_ADMIN'))
 {
   $admin_file = FACIAL_PATH . 'include/admin_events.inc.php';
+  add_event_handler('loc_end_element_set_global', 'facial_batch_global', EVENT_HANDLER_PRIORITY_NEUTRAL, $admin_file);
+  add_event_handler('element_set_global_action', 'facial_batch_global_submit', EVENT_HANDLER_PRIORITY_NEUTRAL, $admin_file);
 }
 else
 {
@@ -85,8 +87,3 @@ function facial_init()
   // Prepare plugin configuration
   $conf['facial'] = safe_unserialize($conf['facial']);
 }
-
-// function facial_form_assign_subjects()
-// {
-//   return; // --- IGNORE ---
-// }

@@ -515,3 +515,226 @@ function facial_recognize_face($base64Image, $detProbThreshold = 0.9)
   if (isset($logger)) $logger->debug("facial_recognize_face: API result: " . json_encode($firstFace));
   return $firstFace;
 }
+
+/**
+ * Calls the Compreface recognition API for a given image and returns all recognition results.
+ *
+ * @param string $imagePath Path to the image file to recognize.
+ * @param float $detProbThreshold Detection probability threshold (optional).
+ * @return array|null Multi-dimensional array of all recognition results, or null on error.
+ */
+function facial_recognize_faces_all($imagePath, $detProbThreshold = 0.9)
+{
+  global $conf, $logger;
+  if (!file_exists($imagePath)) {
+    if (isset($logger)) $logger->error("facial_recognize_faces_all: Image file does not exist: $imagePath");
+    return null;
+  }
+  $baseUrl = facial_get_api_base_url();
+  $apiKey = facial_get_recognition_api_key();
+  $ch = curl_init();
+  $url = $baseUrl . '/recognition/recognize?det_prob_threshold=' . urlencode($detProbThreshold);
+  curl_setopt_array($ch, [
+    CURLOPT_URL => $url,
+    CURLOPT_POST => true,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_HTTPHEADER => [
+      "Content-Type: multipart/form-data",
+      "x-api-key: $apiKey"
+    ],
+    CURLOPT_POSTFIELDS => [
+      "file" => new CURLFile($imagePath)
+    ]
+  ]);
+  $response = curl_exec($ch);
+  $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+  if (curl_errno($ch)) {
+    if (isset($logger)) $logger->error('facial_recognize_faces_all cURL error: ' . curl_error($ch));
+    curl_close($ch);
+    return null;
+  }
+  curl_close($ch);
+  if ($httpCode !== 200) {
+    if (isset($logger)) $logger->error("facial_recognize_faces_all failed. HTTP code: $httpCode. Response: $response");
+    return null;
+  }
+  $data = json_decode($response, true);
+  if (!is_array($data) || !isset($data['result']) || !is_array($data['result']) || count($data['result']) === 0) {
+    if (isset($logger)) $logger->debug("facial_recognize_faces_all: No results found.");
+    return null;
+  }
+  // Return all results (array of faces)
+  if (isset($logger)) $logger->debug("facial_recognize_faces_all: API result: " . json_encode($data['result']));
+  return $data['result'];
+}
+
+/**
+ * Recognizes faces in a Piwigo image by image_id using the Compreface recognition API.
+ *
+ * @param int $imageId The Piwigo image ID to recognize faces in.
+ * @param float $detProbThreshold Detection probability threshold (optional, default 0.9).
+ * @return array|null Array of recognition results for all detected faces, or null on error.
+ */
+function facial_recognize_faces_by_image_id($imageId, $detProbThreshold = 0.9)
+{
+  global $conf, $logger;
+
+  if (isset($logger)) $logger->debug("facial_recognize_faces_by_image_id called with imageId: $imageId");
+
+  // Get image path from Piwigo database
+  $query = 'SELECT path FROM ' . IMAGES_TABLE . ' WHERE id = ' . intval($imageId) . ' LIMIT 1;';
+
+  $result = pwg_query($query);
+  $imagePath = null;
+  if ($row = pwg_db_fetch_assoc($result)) {
+    $imagePath = $row['path'];
+  } else {
+    return null;
+  }
+
+  // Check if image file exists
+  if (!$imagePath || !file_exists($imagePath)) {
+    if (isset($logger)) $logger->error("facial_recognize_faces_by_image_id: Image file does not exist: $imagePath");
+    return null;
+  }
+
+  // Call CompreFace recognition API
+  $baseUrl = facial_get_api_base_url();
+  $apiKey = facial_get_recognition_api_key();
+
+  if (isset($logger)) $logger->debug("API Request: POST " . $baseUrl . '/recognition/recognize' . " with x-api-key: $apiKey");
+
+  $ch = curl_init();
+  $url = $baseUrl . '/recognition/recognize?det_prob_threshold=' . urlencode($detProbThreshold);
+
+  curl_setopt_array($ch, [
+    CURLOPT_URL => $url,
+    CURLOPT_POST => true,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_HTTPHEADER => [
+      "Content-Type: multipart/form-data",
+      "x-api-key: $apiKey"
+    ],
+    CURLOPT_POSTFIELDS => [
+      "file" => new CURLFile($imagePath)
+    ]
+  ]);
+
+  $response = curl_exec($ch);
+  $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+  if (curl_errno($ch)) {
+    if (isset($logger)) $logger->error('facial_recognize_faces_by_image_id cURL error: ' . curl_error($ch));
+    curl_close($ch);
+    return null;
+  }
+
+  curl_close($ch);
+
+  if ($httpCode !== 200) {
+    if (isset($logger)) $logger->error("facial_recognize_faces_by_image_id failed. HTTP code: $httpCode. Response: $response");
+    return null;
+  }
+
+  if (isset($logger)) $logger->debug("API Response: $response");
+
+  $data = json_decode($response, true);
+  if (!is_array($data) || !isset($data['result']) || !is_array($data['result'])) {
+    if (isset($logger)) $logger->error('facial_recognize_faces_by_image_id: Invalid response from CompreFace API');
+    return null;
+  }
+
+  if (count($data['result']) === 0) {
+    if (isset($logger)) $logger->debug("facial_recognize_faces_by_image_id: No faces recognized for imageId: $imageId");
+    return array(); // Return empty array instead of null for no results
+  }
+
+  // Return all recognition results
+  if (isset($logger)) $logger->debug("facial_recognize_faces_by_image_id: Found " . count($data['result']) . " face(s) for imageId: $imageId");
+  return $data['result'];
+}
+
+/**
+ * Adds a tag to a Piwigo image, creating the tag if it does not exist.
+ *
+ * - Checks if the tag exists, creates it if not.
+ * - Associates the tag with the image if not already associated.
+ * - Uses Piwigo's set_tags function to update image tags.
+ *
+ * @param string $tag The tag name to add to the image.
+ * @param int $imageId The Piwigo image ID to associate the tag with.
+ * @return bool True if the tag is successfully associated, false on error.
+ */
+function facial_add_tag_to_image($tag, $imageId)
+{
+  global $logger;
+
+  if (isset($logger)) $logger->debug("facial_add_tag_to_image called with tag: '$tag', imageId: $imageId");
+
+  // Escape the tag name for database safety
+  $escaped_tag_name = pwg_db_real_escape_string($tag);
+
+  // Step 1: Look to see if tag already exists, create it if it doesn't
+  $tag_id = null;
+  $creation_output = create_tag($escaped_tag_name);
+
+  if (isset($creation_output['error'])) {
+    // Tag already exists, find its ID
+    if (isset($logger)) $logger->debug("Tag '$tag' already exists, finding its ID");
+    $query = '
+SELECT id
+  FROM '.TAGS_TABLE.'
+  WHERE name = "'. $escaped_tag_name .'"
+;';
+    $existing_tags = query2array($query, null, 'id');
+    if (count($existing_tags) > 0) {
+      $tag_id = $existing_tags[0];
+      if (isset($logger)) $logger->debug("Found existing tag ID: $tag_id");
+    } else {
+      if (isset($logger)) $logger->error("Tag '$tag' should exist but was not found in database");
+      return false;
+    }
+  } else {
+    // New tag created successfully
+    $tag_id = $creation_output['id'];
+    if (isset($logger)) $logger->debug("Created new tag with ID: $tag_id");
+  }
+
+  if ($tag_id === null) {
+    if (isset($logger)) $logger->error("Failed to get tag ID for tag: '$tag'");
+    return false;
+  }
+
+  // Step 2: Look to see if tag is already associated with image_id
+  $query = '
+SELECT COUNT(*)
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE image_id = '.intval($imageId).' AND tag_id = '.intval($tag_id).'
+;';
+  $association_exists = pwg_db_fetch_array(pwg_query($query))[0] > 0;
+
+  if ($association_exists) {
+    if (isset($logger)) $logger->debug("Tag '$tag' (ID: $tag_id) is already associated with image $imageId");
+    return true; // Already associated, nothing to do
+  }
+
+  // Step 3: If the tag isn't associated, associate it with the image
+  if (isset($logger)) $logger->debug("Associating tag '$tag' (ID: $tag_id) with image $imageId");
+
+  // Get current tags for the image
+  $query = '
+SELECT tag_id
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE image_id = '.intval($imageId).'
+;';
+  $current_tag_ids = query2array($query, null, 'tag_id');
+
+  // Add the new tag ID to the existing ones
+  $current_tag_ids[] = $tag_id;
+
+  // Use Piwigo's set_tags function to update all tags for the image
+  set_tags($current_tag_ids, $imageId);
+
+  if (isset($logger)) $logger->debug("Successfully associated tag '$tag' with image $imageId");
+  return true;
+}
