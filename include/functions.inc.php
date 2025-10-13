@@ -660,9 +660,7 @@ SELECT id
     $existing_tags = query2array($query, null, 'id');
     if (count($existing_tags) > 0) {
       $tag_id = $existing_tags[0];
-      if (isset($logger)) $logger->debug("Found existing tag ID: $tag_id");
     } else {
-      if (isset($logger)) $logger->error("Tag '$tag' should exist but was not found in database");
       return false;
     }
   } else {

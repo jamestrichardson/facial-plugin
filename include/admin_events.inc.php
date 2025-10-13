@@ -159,9 +159,6 @@ function facial_batch_global_submit($action, $collection)
     // Process facial recognition on the selected images
     foreach ($collection as $image_id)
     {
-      $logger->debug("Processing image ID: $image_id");
-      //facial_process_image($image_id);
-
       /*
         For each image in the collection,
         I want to first send the image to CompreFace
