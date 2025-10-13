@@ -134,7 +134,7 @@ function facial_batch_global()
   load_language('plugin.lang', FACIAL_PATH);
 
   // Assign the template for batch management
-  $template->set_filename('FACIAL_batch_global', dirname(__FILE__).'./template/batch_global.tpl');
+  $template->set_filename('FACIAL_batch_global', dirname(__FILE__).'/template/batch_global.tpl');
 
   $FacialOptions = array();
   $template->assign('FacialOptions', $FacialOptions);
