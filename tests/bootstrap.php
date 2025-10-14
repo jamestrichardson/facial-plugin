@@ -33,7 +33,14 @@ if (!defined('IMAGE_TAG_TABLE')) {
 global $prefixeTable, $conf, $logger;
 $prefixeTable = 'piwigo_';
 $conf = array();
-$logger = null;
+
+// Create a mock logger object
+$logger = new class {
+    public function debug($message) { /* no-op */ }
+    public function info($message) { /* no-op */ }
+    public function error($message) { /* no-op */ }
+    public function warning($message) { /* no-op */ }
+};
 
 // Mock Piwigo functions that are used by the plugin
 if (!function_exists('pwg_query')) {
@@ -60,6 +67,10 @@ if (!function_exists('pwg_db_fetch_array')) {
 if (!function_exists('query2array')) {
     function query2array($query, $key = null, $value = null) {
         // Mock implementation for testing
+        // Return a tag ID if the query is looking for existing tags
+        if (strpos($query, 'existing-tag') !== false) {
+            return array(999); // Mock tag ID for existing tag
+        }
         return array();
     }
 }
@@ -67,7 +78,13 @@ if (!function_exists('query2array')) {
 if (!function_exists('safe_unserialize')) {
     function safe_unserialize($data) {
         if (is_string($data)) {
-            return unserialize($data);
+            // Use @ to suppress warnings for invalid serialized data
+            $result = @unserialize($data);
+            // If unserialize fails, return false
+            if ($result === false && $data !== serialize(false)) {
+                return false;
+            }
+            return $result;
         }
         return $data;
     }

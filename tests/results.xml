@@ -1,138 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="" tests="56" assertions="50" errors="9" warnings="0" failures="2" skipped="0" time="0.008272">
-    <testsuite name="Facial Plugin Test Suite" tests="56" assertions="50" errors="9" warnings="0" failures="2" skipped="0" time="0.008272">
-      <testsuite name="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" tests="15" assertions="9" errors="6" warnings="0" failures="0" skipped="0" time="0.005770">
-        <testcase name="testFacialGetSubjectsWithValidConfig" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="17" assertions="1" time="0.003187"/>
-        <testcase name="testFacialDeleteSubjectWithValidSubject" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="34" assertions="0" time="0.000542">
-          <error type="Error">ApiIntegrationFunctionsTest::testFacialDeleteSubjectWithValidSubject
-Error: Call to a member function debug() on null
-
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/include/functions.inc.php:242
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php:44</error>
-        </testcase>
-        <testcase name="testFacialDeleteSubjectWithEmptySubject" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="48" assertions="0" time="0.000097">
-          <error type="Error">ApiIntegrationFunctionsTest::testFacialDeleteSubjectWithEmptySubject
-Error: Call to a member function debug() on null
-
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/include/functions.inc.php:242
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php:58</error>
-        </testcase>
-        <testcase name="testFacialAddSubjectWithValidSubject" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="62" assertions="1" time="0.000387"/>
-        <testcase name="testFacialAddSubjectWithSpecialCharacters" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="76" assertions="1" time="0.000292"/>
-        <testcase name="testFacialRenameSubjectWithValidNames" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="90" assertions="0" time="0.000085">
-          <error type="Error">ApiIntegrationFunctionsTest::testFacialRenameSubjectWithValidNames
-Error: Call to a member function debug() on null
-
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/include/functions.inc.php:284
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php:100</error>
-        </testcase>
-        <testcase name="testFacialComprefaceAddExampleWithValidData" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="105" assertions="0" time="0.000076">
-          <error type="Error">ApiIntegrationFunctionsTest::testFacialComprefaceAddExampleWithValidData
-Error: Call to a member function debug() on null
-
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/include/functions.inc.php:394
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php:117</error>
-        </testcase>
-        <testcase name="testFacialRecognizeFaceWithValidBase64" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="121" assertions="1" time="0.000366"/>
-        <testcase name="testFacialRecognizeFaceWithEmptyImage" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="137" assertions="1" time="0.000155"/>
-        <testcase name="testFacialRecognizeFaceWithInvalidBase64" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="143" assertions="1" time="0.000315"/>
-        <testcase name="testFacialRecognizeFacesAllWithValidPath" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="157" assertions="1" time="0.000055"/>
-        <testcase name="testFacialRecognizeFacesByImageIdWithValidId" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="172" assertions="1" time="0.000043"/>
-        <testcase name="testFacialRecognizeFacesByImageIdWithInvalidId" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="186" assertions="1" time="0.000045"/>
-        <testcase name="testFacialDetectAndStoreFacesWithValidImageId" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="192" assertions="0" time="0.000067">
-          <error type="Error">ApiIntegrationFunctionsTest::testFacialDetectAndStoreFacesWithValidImageId
-Error: Call to a member function debug() on null
-
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/include/functions.inc.php:146
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php:202</error>
-        </testcase>
-        <testcase name="testFacialDetectAndStoreFacesWithOverwriteFlag" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="206" assertions="0" time="0.000058">
-          <error type="Error">ApiIntegrationFunctionsTest::testFacialDetectAndStoreFacesWithOverwriteFlag
-Error: Call to a member function debug() on null
-
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/include/functions.inc.php:146
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php:216</error>
-        </testcase>
+  <testsuite name="" tests="56" assertions="63" errors="0" warnings="0" failures="0" skipped="2" time="0.008765">
+    <testsuite name="Facial Plugin Test Suite" tests="56" assertions="63" errors="0" warnings="0" failures="0" skipped="2" time="0.008765">
+      <testsuite name="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" tests="15" assertions="15" errors="0" warnings="0" failures="0" skipped="0" time="0.005611">
+        <testcase name="testFacialGetSubjectsWithValidConfig" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="23" assertions="1" time="0.003092"/>
+        <testcase name="testFacialDeleteSubjectWithValidSubject" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="40" assertions="1" time="0.000378"/>
+        <testcase name="testFacialDeleteSubjectWithEmptySubject" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="54" assertions="1" time="0.000277"/>
+        <testcase name="testFacialAddSubjectWithValidSubject" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="68" assertions="1" time="0.000277"/>
+        <testcase name="testFacialAddSubjectWithSpecialCharacters" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="82" assertions="1" time="0.000261"/>
+        <testcase name="testFacialRenameSubjectWithValidNames" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="96" assertions="1" time="0.000152"/>
+        <testcase name="testFacialComprefaceAddExampleWithValidData" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="111" assertions="1" time="0.000281"/>
+        <testcase name="testFacialRecognizeFaceWithValidBase64" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="127" assertions="1" time="0.000251"/>
+        <testcase name="testFacialRecognizeFaceWithEmptyImage" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="143" assertions="1" time="0.000125"/>
+        <testcase name="testFacialRecognizeFaceWithInvalidBase64" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="149" assertions="1" time="0.000311"/>
+        <testcase name="testFacialRecognizeFacesAllWithValidPath" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="163" assertions="1" time="0.000043"/>
+        <testcase name="testFacialRecognizeFacesByImageIdWithValidId" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="178" assertions="1" time="0.000043"/>
+        <testcase name="testFacialRecognizeFacesByImageIdWithInvalidId" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="192" assertions="1" time="0.000038"/>
+        <testcase name="testFacialDetectAndStoreFacesWithValidImageId" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="198" assertions="1" time="0.000043"/>
+        <testcase name="testFacialDetectAndStoreFacesWithOverwriteFlag" class="ApiIntegrationFunctionsTest" classname="ApiIntegrationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ApiIntegrationFunctionsTest.php" line="212" assertions="1" time="0.000038"/>
       </testsuite>
-      <testsuite name="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" tests="10" assertions="10" errors="0" warnings="0" failures="0" skipped="0" time="0.000641">
-        <testcase name="testFacialGetRecognitionApiKeyWithValidConfig" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="17" assertions="1" time="0.000300"/>
-        <testcase name="testFacialGetRecognitionApiKeyWithEmptyConfig" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="28" assertions="1" time="0.000040"/>
-        <testcase name="testFacialGetDetectionApiKeyWithValidConfig" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="37" assertions="1" time="0.000034"/>
-        <testcase name="testFacialGetDetectionApiKeyWithEmptyConfig" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="48" assertions="1" time="0.000033"/>
-        <testcase name="testFacialGetVerificationApiKeyWithValidConfig" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="57" assertions="1" time="0.000046"/>
+      <testsuite name="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" tests="10" assertions="10" errors="0" warnings="0" failures="0" skipped="0" time="0.000617">
+        <testcase name="testFacialGetRecognitionApiKeyWithValidConfig" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="17" assertions="1" time="0.000287"/>
+        <testcase name="testFacialGetRecognitionApiKeyWithEmptyConfig" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="28" assertions="1" time="0.000038"/>
+        <testcase name="testFacialGetDetectionApiKeyWithValidConfig" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="37" assertions="1" time="0.000039"/>
+        <testcase name="testFacialGetDetectionApiKeyWithEmptyConfig" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="48" assertions="1" time="0.000034"/>
+        <testcase name="testFacialGetVerificationApiKeyWithValidConfig" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="57" assertions="1" time="0.000037"/>
         <testcase name="testFacialGetVerificationApiKeyWithEmptyConfig" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="68" assertions="1" time="0.000033"/>
-        <testcase name="testFacialGetApiBaseUrlWithHttpsEnabled" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="77" assertions="1" time="0.000039"/>
-        <testcase name="testFacialGetApiBaseUrlWithHttpsDisabled" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="90" assertions="1" time="0.000039"/>
-        <testcase name="testFacialGetApiBaseUrlWithDefaults" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="103" assertions="1" time="0.000035"/>
-        <testcase name="testFacialGetApiBaseUrlWithPartialConfig" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="112" assertions="1" time="0.000042"/>
+        <testcase name="testFacialGetApiBaseUrlWithHttpsEnabled" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="77" assertions="1" time="0.000034"/>
+        <testcase name="testFacialGetApiBaseUrlWithHttpsDisabled" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="90" assertions="1" time="0.000050"/>
+        <testcase name="testFacialGetApiBaseUrlWithDefaults" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="103" assertions="1" time="0.000033"/>
+        <testcase name="testFacialGetApiBaseUrlWithPartialConfig" class="ConfigurationFunctionsTest" classname="ConfigurationFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/ConfigurationFunctionsTest.php" line="112" assertions="1" time="0.000032"/>
       </testsuite>
-      <testsuite name="DatabaseFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/DatabaseFunctionsTest.php" tests="6" assertions="6" errors="0" warnings="0" failures="0" skipped="0" time="0.000240">
-        <testcase name="testFacialInsertFaceMetadataWithValidData" class="DatabaseFunctionsTest" classname="DatabaseFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/DatabaseFunctionsTest.php" line="17" assertions="1" time="0.000052"/>
-        <testcase name="testFacialInsertFaceMetadataWithZeroValues" class="DatabaseFunctionsTest" classname="DatabaseFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/DatabaseFunctionsTest.php" line="23" assertions="1" time="0.000036"/>
-        <testcase name="testFacialInsertFaceMetadataWithMaxValues" class="DatabaseFunctionsTest" classname="DatabaseFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/DatabaseFunctionsTest.php" line="29" assertions="1" time="0.000035"/>
-        <testcase name="testFacialInsertFaceMetadataWithNegativeImageId" class="DatabaseFunctionsTest" classname="DatabaseFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/DatabaseFunctionsTest.php" line="35" assertions="1" time="0.000043"/>
-        <testcase name="testFacialInsertFaceMetadataWithFloatCoordinates" class="DatabaseFunctionsTest" classname="DatabaseFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/DatabaseFunctionsTest.php" line="42" assertions="1" time="0.000036"/>
-        <testcase name="testFacialInsertFaceMetadataWithStringInputs" class="DatabaseFunctionsTest" classname="DatabaseFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/DatabaseFunctionsTest.php" line="49" assertions="1" time="0.000037"/>
+      <testsuite name="DatabaseFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/DatabaseFunctionsTest.php" tests="6" assertions="6" errors="0" warnings="0" failures="0" skipped="0" time="0.000239">
+        <testcase name="testFacialInsertFaceMetadataWithValidData" class="DatabaseFunctionsTest" classname="DatabaseFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/DatabaseFunctionsTest.php" line="23" assertions="1" time="0.000049"/>
+        <testcase name="testFacialInsertFaceMetadataWithZeroValues" class="DatabaseFunctionsTest" classname="DatabaseFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/DatabaseFunctionsTest.php" line="29" assertions="1" time="0.000037"/>
+        <testcase name="testFacialInsertFaceMetadataWithMaxValues" class="DatabaseFunctionsTest" classname="DatabaseFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/DatabaseFunctionsTest.php" line="35" assertions="1" time="0.000036"/>
+        <testcase name="testFacialInsertFaceMetadataWithNegativeImageId" class="DatabaseFunctionsTest" classname="DatabaseFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/DatabaseFunctionsTest.php" line="41" assertions="1" time="0.000036"/>
+        <testcase name="testFacialInsertFaceMetadataWithFloatCoordinates" class="DatabaseFunctionsTest" classname="DatabaseFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/DatabaseFunctionsTest.php" line="48" assertions="1" time="0.000043"/>
+        <testcase name="testFacialInsertFaceMetadataWithStringInputs" class="DatabaseFunctionsTest" classname="DatabaseFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/DatabaseFunctionsTest.php" line="55" assertions="1" time="0.000038"/>
       </testsuite>
-      <testsuite name="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" tests="15" assertions="15" errors="3" warnings="0" failures="1" skipped="0" time="0.001229">
-        <testcase name="testConfigurationFunctionsWithNullConfig" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="18" assertions="4" time="0.000059"/>
-        <testcase name="testConfigurationFunctionsWithInvalidSerializedData" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="29" assertions="0" time="0.000239">
-          <error type="PHPUnit\Framework\Error\Warning">EdgeCasesTest::testConfigurationFunctionsWithInvalidSerializedData
-unserialize(): Error at offset 0 of 23 bytes
-
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/bootstrap.php:70
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/include/functions.inc.php:50
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php:34</error>
+      <testsuite name="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" tests="15" assertions="22" errors="0" warnings="0" failures="0" skipped="2" time="0.001964">
+        <testcase name="testConfigurationFunctionsWithNullConfig" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="24" assertions="4" time="0.000053"/>
+        <testcase name="testConfigurationFunctionsWithInvalidSerializedData" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="35" assertions="4" time="0.000069"/>
+        <testcase name="testFacialInsertFaceMetadataWithExtremeValues" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="53" assertions="1" time="0.000040"/>
+        <testcase name="testFacialInsertFaceMetadataWithFloatValues" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="60" assertions="1" time="0.000032"/>
+        <testcase name="testFacialApiBaseUrlWithComplexConfiguration" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="67" assertions="1" time="0.000216"/>
+        <testcase name="testFacialApiBaseUrlWithArrayValues" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="80" assertions="0" time="0.000429">
+          <skipped/>
         </testcase>
-        <testcase name="testFacialInsertFaceMetadataWithExtremeValues" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="40" assertions="1" time="0.000050"/>
-        <testcase name="testFacialInsertFaceMetadataWithFloatValues" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="47" assertions="1" time="0.000040"/>
-        <testcase name="testFacialApiBaseUrlWithComplexConfiguration" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="54" assertions="1" time="0.000191"/>
-        <testcase name="testFacialApiBaseUrlWithArrayValues" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="67" assertions="0" time="0.000065">
-          <error type="PHPUnit\Framework\Error\Warning">EdgeCasesTest::testFacialApiBaseUrlWithArrayValues
-Array to string conversion
-
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/include/functions.inc.php:93
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php:76</error>
+        <testcase name="testFacialAddTagToImageWithNullValues" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="96" assertions="1" time="0.000057"/>
+        <testcase name="testFacialAddTagToImageWithBooleanValues" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="103" assertions="1" time="0.000042"/>
+        <testcase name="testFacialAddTagToImageWithArrayValues" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="110" assertions="0" time="0.000045">
+          <skipped/>
         </testcase>
-        <testcase name="testFacialAddTagToImageWithNullValues" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="80" assertions="1" time="0.000046"/>
-        <testcase name="testFacialAddTagToImageWithBooleanValues" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="87" assertions="1" time="0.000033"/>
-        <testcase name="testFacialAddTagToImageWithArrayValues" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="94" assertions="0" time="0.000060">
-          <error type="TypeError">EdgeCasesTest::testFacialAddTagToImageWithArrayValues
-TypeError: addslashes(): Argument #1 ($string) must be of type string, array given
-
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/bootstrap.php:78
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/include/functions.inc.php:646
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php:96</error>
-        </testcase>
-        <testcase name="testConfigurationWithMixedDataTypes" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="101" assertions="1" time="0.000252">
-          <failure type="PHPUnit\Framework\ExpectationFailedException">EdgeCasesTest::testConfigurationWithMixedDataTypes
-Failed asserting that false is true.
-
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php:119</failure>
-        </testcase>
-        <testcase name="testFacialInsertFaceMetadataWithStringNumbers" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="125" assertions="1" time="0.000044"/>
-        <testcase name="testFacialInsertFaceMetadataWithNonNumericStrings" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="132" assertions="1" time="0.000039"/>
-        <testcase name="testFacialInsertFaceMetadataWithNullValues" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="139" assertions="1" time="0.000035"/>
-        <testcase name="testFacialAddTagToImageWithVeryLongString" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="146" assertions="1" time="0.000039"/>
-        <testcase name="testFacialAddTagToImageWithBinaryData" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="154" assertions="1" time="0.000034"/>
+        <testcase name="testConfigurationWithMixedDataTypes" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="119" assertions="4" time="0.000774"/>
+        <testcase name="testFacialInsertFaceMetadataWithStringNumbers" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="144" assertions="1" time="0.000046"/>
+        <testcase name="testFacialInsertFaceMetadataWithNonNumericStrings" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="151" assertions="1" time="0.000038"/>
+        <testcase name="testFacialInsertFaceMetadataWithNullValues" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="158" assertions="1" time="0.000036"/>
+        <testcase name="testFacialAddTagToImageWithVeryLongString" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="165" assertions="1" time="0.000044"/>
+        <testcase name="testFacialAddTagToImageWithBinaryData" class="EdgeCasesTest" classname="EdgeCasesTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/EdgeCasesTest.php" line="173" assertions="1" time="0.000042"/>
       </testsuite>
-      <testsuite name="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" tests="10" assertions="10" errors="0" warnings="0" failures="1" skipped="0" time="0.000392">
-        <testcase name="testFacialAddTagToImageWithNewTag" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="16" assertions="1" time="0.000045"/>
-        <testcase name="testFacialAddTagToImageWithExistingTag" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="22" assertions="1" time="0.000058">
-          <failure type="PHPUnit\Framework\ExpectationFailedException">TaggingFunctionsTest::testFacialAddTagToImageWithExistingTag
-Failed asserting that false is true.
-
-/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php:25</failure>
-        </testcase>
-        <testcase name="testFacialAddTagToImageWithEmptyTag" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="28" assertions="1" time="0.000043"/>
-        <testcase name="testFacialAddTagToImageWithSpecialCharacters" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="34" assertions="1" time="0.000037"/>
-        <testcase name="testFacialAddTagToImageWithLongTagName" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="40" assertions="1" time="0.000042"/>
-        <testcase name="testFacialAddTagToImageWithZeroImageId" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="47" assertions="1" time="0.000033"/>
-        <testcase name="testFacialAddTagToImageWithNegativeImageId" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="53" assertions="1" time="0.000034"/>
-        <testcase name="testFacialAddTagToImageWithStringImageId" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="59" assertions="1" time="0.000034"/>
-        <testcase name="testFacialAddTagToImageWithUnicodeTag" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="65" assertions="1" time="0.000032"/>
-        <testcase name="testFacialAddTagToImageWithSqlInjectionAttempt" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="71" assertions="1" time="0.000034"/>
+      <testsuite name="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" tests="10" assertions="10" errors="0" warnings="0" failures="0" skipped="0" time="0.000333">
+        <testcase name="testFacialAddTagToImageWithNewTag" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="22" assertions="1" time="0.000044"/>
+        <testcase name="testFacialAddTagToImageWithExistingTag" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="28" assertions="1" time="0.000036"/>
+        <testcase name="testFacialAddTagToImageWithEmptyTag" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="34" assertions="1" time="0.000032"/>
+        <testcase name="testFacialAddTagToImageWithSpecialCharacters" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="40" assertions="1" time="0.000032"/>
+        <testcase name="testFacialAddTagToImageWithLongTagName" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="46" assertions="1" time="0.000032"/>
+        <testcase name="testFacialAddTagToImageWithZeroImageId" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="53" assertions="1" time="0.000032"/>
+        <testcase name="testFacialAddTagToImageWithNegativeImageId" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="59" assertions="1" time="0.000031"/>
+        <testcase name="testFacialAddTagToImageWithStringImageId" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="65" assertions="1" time="0.000033"/>
+        <testcase name="testFacialAddTagToImageWithUnicodeTag" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="71" assertions="1" time="0.000031"/>
+        <testcase name="testFacialAddTagToImageWithSqlInjectionAttempt" class="TaggingFunctionsTest" classname="TaggingFunctionsTest" file="/opt/docker/tkf-piwigo-tkf-srv-01/www/plugins/facial/tests/TaggingFunctionsTest.php" line="77" assertions="1" time="0.000031"/>
       </testsuite>
     </testsuite>
   </testsuite>

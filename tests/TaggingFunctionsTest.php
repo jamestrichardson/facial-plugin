@@ -10,7 +10,13 @@ class TaggingFunctionsTest extends TestCase
     protected function setUp(): void
     {
         global $logger;
-        $logger = null;
+        // Create a mock logger object
+        $logger = new class {
+            public function debug($message) { /* no-op */ }
+            public function info($message) { /* no-op */ }
+            public function error($message) { /* no-op */ }
+            public function warning($message) { /* no-op */ }
+        };
     }
 
     public function testFacialAddTagToImageWithNewTag()

@@ -11,7 +11,13 @@ class DatabaseFunctionsTest extends TestCase
     {
         global $prefixeTable, $logger;
         $prefixeTable = 'piwigo_';
-        $logger = null;
+        // Create a mock logger object
+        $logger = new class {
+            public function debug($message) { /* no-op */ }
+            public function info($message) { /* no-op */ }
+            public function error($message) { /* no-op */ }
+            public function warning($message) { /* no-op */ }
+        };
     }
 
     public function testFacialInsertFaceMetadataWithValidData()
