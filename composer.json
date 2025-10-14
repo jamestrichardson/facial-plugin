@@ -2,11 +2,11 @@
     "name": "jamestrichardson/facial-plugin",
     "description": "Facial Recognition Plugin for Piwigo",
     "type": "project",
-    "license": "GPL-2.0-or-later",
+    "license": "MIT",
     "authors": [
         {
             "name": "James Richardson",
-            "email": "james@teknofile.org"
+            "email": "james@richardsons.us"
         }
     ],
     "require": {
