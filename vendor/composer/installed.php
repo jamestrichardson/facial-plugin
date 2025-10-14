@@ -3,7 +3,7 @@
         'name' => 'jamestrichardson/facial-plugin',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '1f550a37b549639d15533ee6e21dc308467af74e',
+        'reference' => '8d016e7695a174da2dae8c927df42d6ccbc07a8a',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'jamestrichardson/facial-plugin' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '1f550a37b549639d15533ee6e21dc308467af74e',
+            'reference' => '8d016e7695a174da2dae8c927df42d6ccbc07a8a',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
