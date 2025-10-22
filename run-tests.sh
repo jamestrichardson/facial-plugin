@@ -37,7 +37,7 @@ echo ""
 # Run tests with coverage
 if phpunit --version &> /dev/null; then
     echo -e "${GREEN}Running tests with coverage report...${NC}"
-    phpunit --configuration phpunit.xml --coverage-html tests/coverage --coverage-text
+    XDEBUG_MODE=coverage phpunit --configuration phpunit.xml --coverage-html tests/coverage --coverage-text
 
     # Check if tests passed
     if [ $? -eq 0 ]; then
