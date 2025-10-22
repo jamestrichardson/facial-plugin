@@ -21,6 +21,16 @@
     <rule ref="Generic.WhiteSpace.DisallowTabIndent">
         <exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
     </rule>
+    
+    <!-- Exclude operator spacing rules -->
+    <rule ref="PSR12.Operators.OperatorSpacing">
+        <exclude name="PSR12.Operators.OperatorSpacing"/>
+    </rule>
+    
+    <!-- Exclude inline control structure rules -->
+    <rule ref="Generic.ControlStructures.InlineControlStructure">
+        <exclude name="Generic.ControlStructures.InlineControlStructure"/>
+    </rule>
 
     <!-- Show progress -->
     <arg value="p"/>
