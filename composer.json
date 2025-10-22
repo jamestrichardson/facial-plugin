@@ -17,11 +17,6 @@
         "squizlabs/php_codesniffer": "^3.6",
         "phpstan/phpstan": "^1.8"
     },
-    "autoload": {
-        "files": [
-            "include/functions.inc.php"
-        ]
-    },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
@@ -29,9 +24,9 @@
     },
     "scripts": {
         "test": "phpunit",
-        "test-coverage": "phpunit --coverage-html tests/coverage",
-        "test-coverage-text": "phpunit --coverage-text",
-        "phpcs": "phpcs --standard=PSR12 include/",
+        "test-coverage": "XDEBUG_MODE=coverage phpunit --coverage-html tests/coverage",
+        "test-coverage-text": "XDEBUG_MODE=coverage phpunit --coverage-text",
+        "phpcs": "phpcs",
         "phpstan": "phpstan analyse include/ --level=5"
     },
     "config": {
