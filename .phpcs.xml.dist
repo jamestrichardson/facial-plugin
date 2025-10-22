@@ -31,12 +31,12 @@
     <rule ref="Generic.ControlStructures.InlineControlStructure">
         <exclude name="Generic.ControlStructures.InlineControlStructure"/>
     </rule>
-    
+
     <!-- Exclude side effects warnings (files with both symbols and logic) -->
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
         <severity>0</severity>
     </rule>
-    
+
     <!-- Exclude control structure spacing rules -->
     <rule ref="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis">
         <severity>0</severity>
@@ -47,12 +47,12 @@
     <rule ref="Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword">
         <severity>0</severity>
     </rule>
-    
+
     <!-- Exclude line length warnings -->
     <rule ref="Generic.Files.LineLength.TooLong">
         <severity>0</severity>
     </rule>
-    
+
     <!-- Exclude function call signature spacing -->
     <rule ref="PSR2.Methods.FunctionCallSignature.SpaceAfterOpenBracket">
         <severity>0</severity>
@@ -60,9 +60,14 @@
     <rule ref="PSR2.Methods.FunctionCallSignature.SpaceBeforeCloseBracket">
         <severity>0</severity>
     </rule>
-    
+
     <!-- Exclude closing tag rule (some files need it for redirects) -->
     <rule ref="PSR2.Files.ClosingTag.NotAllowed">
+        <severity>0</severity>
+    </rule>
+    
+    <!-- Exclude switch/case break indentation (Piwigo uses different style) -->
+    <rule ref="PSR2.ControlStructures.SwitchDeclaration.BreakIndent">
         <severity>0</severity>
     </rule>
 
