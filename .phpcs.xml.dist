@@ -78,6 +78,14 @@
     <rule ref="PSR2.ControlStructures.SwitchDeclaration.BreakIndent">
         <severity>0</severity>
     </rule>
+    
+    <!-- Exclude file header spacing rules -->
+    <rule ref="PSR12.Files.FileHeader.SpacingAfterBlock">
+        <severity>0</severity>
+    </rule>
+    <rule ref="PSR2.Files.EndFileNewline">
+        <severity>0</severity>
+    </rule>
 
     <!-- Show progress -->
     <arg value="p"/>
