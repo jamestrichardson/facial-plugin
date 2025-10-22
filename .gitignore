@@ -1,2 +1,8 @@
 contrib/
 .phpunit.result.cache
+
+# Test coverage and results (generated files)
+tests/coverage/
+tests/coverage.xml
+tests/coverage.txt
+tests/results.xml

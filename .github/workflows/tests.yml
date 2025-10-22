@@ -43,11 +43,11 @@ jobs:
       run: composer run-script test
 
     - name: Generate coverage report
-      if: matrix.php-version == '8.1'
+      if: matrix.php-version == '8.3'
       run: composer run-script test-coverage
 
     - name: Upload coverage reports to Codecov
-      if: matrix.php-version == '8.1'
+      if: matrix.php-version == '8.3'
       uses: codecov/codecov-action@v3
       with:
         file: ./tests/coverage.xml

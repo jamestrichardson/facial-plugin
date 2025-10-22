@@ -24,7 +24,7 @@
     },
     "scripts": {
         "test": "phpunit",
-        "test-coverage": "XDEBUG_MODE=coverage phpunit --coverage-html tests/coverage",
+        "test-coverage": "XDEBUG_MODE=coverage phpunit --coverage-html tests/coverage --coverage-clover tests/coverage.xml",
         "test-coverage-text": "XDEBUG_MODE=coverage phpunit --coverage-text",
         "phpcs": "phpcs",
         "phpstan": "phpstan analyse include/ --level=5"
