@@ -60,6 +60,14 @@
     <rule ref="PSR2.Methods.FunctionCallSignature.SpaceBeforeCloseBracket">
         <severity>0</severity>
     </rule>
+    
+    <!-- Exclude multi-line function call formatting (conflicts with 2-space indentation) -->
+    <rule ref="PSR2.Methods.FunctionCallSignature.Indent">
+        <severity>0</severity>
+    </rule>
+    <rule ref="PSR2.Methods.FunctionCallSignature.MultipleArguments">
+        <severity>0</severity>
+    </rule>
 
     <!-- Exclude closing tag rule (some files need it for redirects) -->
     <rule ref="PSR2.Files.ClosingTag.NotAllowed">
