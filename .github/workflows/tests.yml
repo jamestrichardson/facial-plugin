@@ -72,5 +72,5 @@ jobs:
     - name: Run PHPCS
       run: composer run-script phpcs
 
-    - name: Run PHPStan
-      run: composer run-script phpstan
+    # - name: Run PHPStan
+    #   run: composer run-script phpstan

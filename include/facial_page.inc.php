@@ -1,4 +1,5 @@
 <?php
+
 defined('FACIAL_PATH') or die('Hacking attempt!');
 
 global $page, $template, $conf, $user, $tokens, $pwg_loaded_plugins;

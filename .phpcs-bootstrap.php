@@ -2,7 +2,7 @@
 /**
  * PHPCS Bootstrap file
  * Defines constants needed to prevent "Hacking attempt!" errors
- * 
+ *
  * This file is loaded before PHPCS scans the codebase
  */
 
