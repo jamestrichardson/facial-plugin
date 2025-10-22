@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="tests/bootstrap.php"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnFailure="false">
+    <testsuites>
+        <testsuite name="Facial Plugin Test Suite">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">include</directory>
+        </include>
+        <exclude>
+            <directory>tests</directory>
+            <directory>admin</directory>
+            <directory>template</directory>
+            <file>include/index.php</file>
+            <file>include/admin.php</file>
+        </exclude>
+        <report>
+            <html outputDirectory="tests/coverage"/>
+            <text outputFile="tests/coverage.txt"/>
+            <clover outputFile="tests/coverage.xml"/>
+        </report>
+    </coverage>
+
+    <logging>
+        <junit outputFile="tests/results.xml"/>
+    </logging>
+</phpunit>

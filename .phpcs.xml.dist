@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<ruleset name="Facial Plugin Coding Standards">
+    <description>PHPCS configuration for Facial Recognition Plugin</description>
+
+    <!-- Files to check -->
+    <file>include</file>
+
+    <!-- Exclude vendor and test files -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/tests/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/_data/*</exclude-pattern>
+
+    <!-- Use PSR12 as base standard -->
+    <rule ref="PSR12"/>
+
+    <!-- Exclude indentation rules -->
+    <rule ref="Generic.WhiteSpace.ScopeIndent">
+        <exclude name="Generic.WhiteSpace.ScopeIndent"/>
+    </rule>
+    <rule ref="Generic.WhiteSpace.DisallowTabIndent">
+        <exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
+    </rule>
+
+    <!-- Exclude operator spacing rules -->
+    <rule ref="PSR12.Operators.OperatorSpacing">
+        <exclude name="PSR12.Operators.OperatorSpacing"/>
+    </rule>
+
+    <!-- Exclude inline control structure rules -->
+    <rule ref="Generic.ControlStructures.InlineControlStructure">
+        <exclude name="Generic.ControlStructures.InlineControlStructure"/>
+    </rule>
+
+    <!-- Exclude side effects warnings (files with both symbols and logic) -->
+    <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Exclude control structure spacing rules -->
+    <rule ref="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Exclude line length warnings -->
+    <rule ref="Generic.Files.LineLength.TooLong">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Exclude function call signature spacing -->
+    <rule ref="PSR2.Methods.FunctionCallSignature.SpaceAfterOpenBracket">
+        <severity>0</severity>
+    </rule>
+    <rule ref="PSR2.Methods.FunctionCallSignature.SpaceBeforeCloseBracket">
+        <severity>0</severity>
+    </rule>
+    
+    <!-- Exclude multi-line function call formatting (conflicts with 2-space indentation) -->
+    <rule ref="PSR2.Methods.FunctionCallSignature.Indent">
+        <severity>0</severity>
+    </rule>
+    <rule ref="PSR2.Methods.FunctionCallSignature.MultipleArguments">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Exclude closing tag rule (some files need it for redirects) -->
+    <rule ref="PSR2.Files.ClosingTag.NotAllowed">
+        <severity>0</severity>
+    </rule>
+    
+    <!-- Exclude switch/case break indentation (Piwigo uses different style) -->
+    <rule ref="PSR2.ControlStructures.SwitchDeclaration.BreakIndent">
+        <severity>0</severity>
+    </rule>
+    
+    <!-- Exclude file header spacing rules -->
+    <rule ref="PSR12.Files.FileHeader.SpacingAfterBlock">
+        <severity>0</severity>
+    </rule>
+    <rule ref="PSR2.Files.EndFileNewline">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Show progress -->
+    <arg value="p"/>
+
+    <!-- Use colors in output -->
+    <arg name="colors"/>
+
+    <!-- Show sniff codes in all reports -->
+    <arg value="s"/>
+</ruleset>
