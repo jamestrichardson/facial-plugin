@@ -103,6 +103,90 @@ The plugin creates and manages the following tables:
 - [Documentation](./docs/)
 - [Piwigo Forums](https://piwigo.org/forum/)
 
+## Development
+
+### Prerequisites for Development
+- PHP 7.4+ with Xdebug or PCOV for code coverage
+- Composer for dependency management
+- Git for version control
+
+### Installing Development Dependencies
+
+```bash
+composer install
+```
+
+### Running Tests
+
+The plugin includes a comprehensive test suite with 56 tests covering all core functions.
+
+#### Run All Tests
+```bash
+# Using the test runner script (recommended)
+./run-tests.sh
+
+# Or using Composer
+composer test
+```
+
+#### Generate Code Coverage Reports
+```bash
+# HTML coverage report (opens in browser)
+composer test-coverage
+# Coverage report is generated in tests/coverage/
+
+# Text-based coverage report (shows in terminal)
+composer test-coverage-text
+```
+
+#### Run Individual Test Files
+```bash
+./vendor/bin/phpunit tests/ConfigurationFunctionsTest.php
+./vendor/bin/phpunit tests/DatabaseFunctionsTest.php
+./vendor/bin/phpunit tests/ApiIntegrationFunctionsTest.php
+./vendor/bin/phpunit tests/TaggingFunctionsTest.php
+./vendor/bin/phpunit tests/EdgeCasesTest.php
+```
+
+### Code Quality Checks
+
+#### PHP CodeSniffer (PHPCS)
+Check code style compliance with PSR12 standards (with custom exclusions):
+
+```bash
+# Run PHPCS
+composer phpcs
+
+# Auto-fix fixable violations
+./vendor/bin/phpcbf
+```
+
+**Note:** The project uses custom PHPCS rules that exclude:
+- Indentation style (Piwigo uses 2-space vs PSR12's 4-space)
+- Operator spacing
+- Inline control structures
+
+#### PHPStan (Static Analysis)
+Run static analysis to detect potential issues:
+
+```bash
+composer phpstan
+```
+
+**Note:** PHPStan will report "function not found" errors for Piwigo core functions - this is expected behavior.
+
+### Test Coverage Status
+- **Total Tests:** 56
+- **Passing:** 54
+- **Skipped:** 2 (edge cases with PHP warnings)
+- **Line Coverage:** ~38%
+- **Assertions:** 63
+
+See [tests/README.md](tests/README.md) for detailed testing documentation.
+
+### Continuous Integration
+The project uses GitHub Actions for automated testing on multiple PHP versions (7.4, 8.0, 8.1, 8.2).
+
 ## License
 
 This project is licensed under [insert license name] - see the [LICENSE](LICENSE) file for details.

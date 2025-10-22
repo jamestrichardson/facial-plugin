@@ -2,6 +2,39 @@
 
 This directory contains comprehensive PHPUnit test coverage for the Facial Recognition Plugin.
 
+## Quick Start
+
+### Run All Tests
+```bash
+# From the plugin root directory
+./run-tests.sh
+
+# Or using Composer
+composer test
+```
+
+### Generate Coverage Report
+```bash
+# HTML coverage report
+composer test-coverage
+# Open tests/coverage/index.html in your browser
+
+# Text coverage in terminal
+composer test-coverage-text
+```
+
+### Run Code Quality Checks
+```bash
+# Check code style (PHPCS)
+composer phpcs
+
+# Auto-fix code style issues
+./vendor/bin/phpcbf
+
+# Static analysis (PHPStan)
+composer phpstan
+```
+
 ## Current Test Status
 
 ✅ **56 tests total** | ✅ **54 passing** | ⏭️ **2 skipped** | ✅ **63 assertions** | ✅ **0 failures** | ✅ **0 errors**
